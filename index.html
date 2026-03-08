@@ -97,6 +97,23 @@ footer ul a:hover{color:var(--accent)}
 nav ul{display:none}
 .stats{gap:2rem}
 }
+
+/* FARO HERO */
+.hero{position:relative;overflow:hidden}
+.lighthouse-bg{position:absolute;bottom:0;right:5%;width:340px;height:500px;opacity:.18;pointer-events:none;z-index:0}
+.hero>div{position:relative;z-index:1}
+.beacon-ray{transform-origin:50% 100%;animation:sweep 6s ease-in-out infinite}
+.beacon-ray:nth-child(2){animation-delay:-2s;opacity:.6}
+.beacon-ray:nth-child(3){animation-delay:-4s;opacity:.4}
+@keyframes sweep{
+  0%,100%{transform:rotate(-15deg);opacity:.8}
+  50%{transform:rotate(15deg);opacity:.3}
+}
+.lighthouse-glow{animation:pulse 3s ease-in-out infinite}
+@keyframes pulse{
+  0%,100%{filter:drop-shadow(0 0 12px #06b6d4) drop-shadow(0 0 24px #8b5cf6)}
+  50%{filter:drop-shadow(0 0 20px #06b6d4) drop-shadow(0 0 40px #c77dff)}
+}
 </style>
 </head>
 <body>
@@ -111,6 +128,92 @@ nav ul{display:none}
 </nav>
 
 <section class="hero">
+
+<svg class="lighthouse-bg" viewBox="0 0 340 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="towerGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#1e1b4b"/>
+      <stop offset="50%" stop-color="#312e81"/>
+      <stop offset="100%" stop-color="#1e1b4b"/>
+    </linearGradient>
+    <linearGradient id="lightGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#06b6d4" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="lightGrad2" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#c77dff" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="glowGrad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#06b6d4" stop-opacity="1"/>
+      <stop offset="60%" stop-color="#8b5cf6" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#8b5cf6" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Rayos de luz animados -->
+  <g class="beacon-ray">
+    <polygon points="170,160 340,0 340,120" fill="url(#lightGrad)" opacity="0.7"/>
+    <polygon points="170,160 0,0 0,120" fill="url(#lightGrad2)" opacity="0.5"/>
+  </g>
+  <g class="beacon-ray">
+    <polygon points="170,160 300,0 340,60" fill="url(#lightGrad)" opacity="0.4"/>
+  </g>
+  <g class="beacon-ray">
+    <polygon points="170,160 40,20 0,80" fill="url(#lightGrad2)" opacity="0.3"/>
+  </g>
+
+  <!-- Base del faro - roca/isla -->
+  <ellipse cx="170" cy="490" rx="120" ry="20" fill="#0d1b2a" opacity="0.8"/>
+  <path d="M 80 490 Q 100 470 130 465 Q 170 460 210 465 Q 240 470 260 490 Z" fill="#111827"/>
+
+  <!-- Torre del faro - cuerpo principal -->
+  <path d="M 135 460 L 145 220 L 155 160 L 185 160 L 195 220 L 205 460 Z" fill="url(#towerGrad)"/>
+
+  <!-- Franjas decorativas de la torre -->
+  <path d="M 136 400 L 138 370 L 202 370 L 204 400 Z" fill="#1e3a5f" opacity="0.6"/>
+  <path d="M 139 330 L 141 300 L 199 300 L 201 330 Z" fill="#1e3a5f" opacity="0.5"/>
+  <path d="M 142 260 L 144 230 L 196 230 L 198 260 Z" fill="#1e3a5f" opacity="0.4"/>
+
+  <!-- Plataforma de observación -->
+  <rect x="130" y="195" width="80" height="8" rx="2" fill="#312e81"/>
+  <rect x="125" y="190" width="90" height="8" rx="2" fill="#4c1d95"/>
+
+  <!-- Barandilla -->
+  <line x1="130" y1="190" x2="130" y2="200" stroke="#06b6d4" stroke-width="2"/>
+  <line x1="145" y1="190" x2="145" y2="200" stroke="#06b6d4" stroke-width="2"/>
+  <line x1="160" y1="190" x2="160" y2="200" stroke="#06b6d4" stroke-width="2"/>
+  <line x1="175" y1="190" x2="175" y2="200" stroke="#06b6d4" stroke-width="2"/>
+  <line x1="190" y1="190" x2="190" y2="200" stroke="#06b6d4" stroke-width="2"/>
+  <line x1="205" y1="190" x2="205" y2="200" stroke="#06b6d4" stroke-width="2"/>
+  <line x1="130" y1="190" x2="210" y2="190" stroke="#06b6d4" stroke-width="1.5"/>
+
+  <!-- Cúpula/cuarto de la luz -->
+  <path d="M 145 195 L 148 165 L 170 140 L 192 165 L 195 195 Z" fill="#1e1b4b"/>
+  <path d="M 148 165 L 170 145 L 192 165 L 190 185 L 150 185 Z" fill="#0f172a" opacity="0.8"/>
+
+  <!-- Ventanas de la cúpula -->
+  <ellipse cx="160" cy="172" rx="5" ry="7" fill="#06b6d4" opacity="0.9"/>
+  <ellipse cx="180" cy="172" rx="5" ry="7" fill="#06b6d4" opacity="0.9"/>
+
+  <!-- Techo cónico -->
+  <path d="M 148 165 L 170 120 L 192 165 Z" fill="#312e81"/>
+  <line x1="170" y1="120" x2="170" y2="108" stroke="#c77dff" stroke-width="3"/>
+  <circle cx="170" cy="106" r="5" fill="#c77dff"/>
+
+  <!-- GLOW principal de la luz -->
+  <circle class="lighthouse-glow" cx="170" cy="162" r="30" fill="url(#glowGrad)" opacity="0.9"/>
+  <circle cx="170" cy="162" r="12" fill="#06b6d4" opacity="0.9"/>
+  <circle cx="170" cy="162" r="6" fill="#ffffff" opacity="0.95"/>
+
+  <!-- Agua/mar en la base -->
+  <path d="M 60 480 Q 90 472 120 478 Q 150 484 180 478 Q 210 472 240 478 Q 270 484 300 478 L 300 495 L 60 495 Z" fill="#0d1b2a" opacity="0.5"/>
+
+  <!-- Reflejos en el agua -->
+  <line x1="155" y1="485" x2="185" y2="495" stroke="#06b6d4" stroke-width="1" opacity="0.3"/>
+  <line x1="160" y1="488" x2="180" y2="495" stroke="#8b5cf6" stroke-width="1" opacity="0.2"/>
+</svg>
+
   <div>
     <div class="hero-tag">Inteligencia Geopolítica Estratégica</div>
     <h1>Entiende el mundo <em>antes</em> de que te afecte</h1>
