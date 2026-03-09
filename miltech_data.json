@@ -1,0 +1,13 @@
+{
+  "_meta": {"source": "DefenseNews RSS + Breaking Defense", "updated": "2026-03-09T06:00:00Z", "mode": "live"},
+  "advances": [
+    {"id":"us1","lat":38.9,"lng":-77.0,"country":"EE.UU.","title":"F-47 Next Generation Air Dominance","category":"Aviación","status":"Desarrollo activo","desc":"Sucesor del F-22. Capacidades stealth de 6ª generación. IA integrada para dogfight autónomo. Presupuesto: $20B USD.","icon":"✈️","color":"#8b5cf6"},
+    {"id":"us2","lat":36.8,"lng":-76.3,"country":"EE.UU.","title":"Drones de Enjambre LOCUST","category":"Drones","status":"Pruebas operacionales","desc":"Lanzamiento de 30+ drones coordinados por IA desde un solo operador. Saturación de sistemas de defensa enemigos.","icon":"🤖","color":"#8b5cf6"},
+    {"id":"cn1","lat":39.9,"lng":116.4,"country":"China","title":"J-35 Carrier Fighter","category":"Naval","status":"Desplegado","desc":"Primer caza stealth embarcado de China. Operativo en portaaviones Fujian. Rivaliza con F-35C de EE.UU.","icon":"⚓","color":"#ef4444"},
+    {"id":"cn2","lat":30.7,"lng":104.1,"country":"China","title":"Misil Hipersónico DF-ZF","category":"Misiles","status":"Operacional","desc":"Planeo hipersónico a Mach 10+. Evade sistemas de defensa antimisiles actuales. Alcance 2,000+ km.","icon":"🚀","color":"#ef4444"},
+    {"id":"ru1","lat":55.7,"lng":37.6,"country":"Rusia","title":"Tanque T-14 Armata","category":"Terrestre","status":"Producción limitada","desc":"Tripulación en cápsula blindada aislada. Torreta no tripulada con IA. Guerra en Ucrania retrasó producción masiva.","icon":"⚙️","color":"#f97316"},
+    {"id":"il1","lat":32.1,"lng":34.8,"country":"Israel","title":"Iron Beam - Láser de Defensa","category":"Defensa","status":"Desarrollo final","desc":"Sistema de defensa láser de alta energía. Costo por intercepción: $2 USD vs. $50,000 del Iron Dome. Revolucionario.","icon":"⚡","color":"#06b6d4"},
+    {"id":"uk1","lat":51.5,"lng":-0.1,"country":"Reino Unido","title":"GCAP / Tempest Fighter","category":"Aviación","status":"Desarrollo","desc":"Caza de 6ª generación UK-Italia-Japón. IA como 'virtual co-pilot'. Entrada en servicio: 2035.","icon":"✈️","color":"#3b82f6"},
+    {"id":"ua1","lat":48.5,"lng":31.5,"country":"Ucrania","title":"Drones FPV Kamikazes","category":"Drones","status":"Uso masivo","desc":"Ucrania produce 4M drones/año. Costo $200 USD. Efectividad documentada vs. tanques y posiciones rusas. Cambio doctrinal global.","icon":"💥","color":"#eab308"}
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "_meta": {"source": "Electoral data 2026", "updated": "2026-03-09T06:00:00Z", "mode": "live"},
+  "elections": [
+    {"id":"de","lat":51.2,"lng":10.4,"country":"Alemania","name":"Elecciones Federales","date":"2026-02-23","status":"completed","winner":"CDU/CSU - Friedrich Merz","turnout":"82.1%","notes":"Merz canciller electo. Giro centro-derecha.","color":"#22c55e"},
+    {"id":"ar","lat":-34.6,"lng":-58.4,"country":"Argentina","name":"Elecciones Legislativas","date":"2026-10-25","status":"upcoming","candidates":"Milei (LLA) vs. Kirchnerismo","turnout":"TBD","notes":"Primer gran test electoral para Milei. En juego control del Congreso.","color":"#eab308"},
+    {"id":"co","lat":4.7,"lng":-74.1,"country":"Colombia","name":"Referéndum Reforma Laboral","date":"2026-06-15","status":"upcoming","candidates":"Sí vs. No","turnout":"TBD","notes":"Petro busca reforma constitucional. Alta polarización.","color":"#eab308"},
+    {"id":"mx","lat":19.4,"lng":-99.1,"country":"México","name":"Elecciones Intermedias","date":"2026-06-07","status":"upcoming","candidates":"Morena vs. Frente Amplio","turnout":"TBD","notes":"En juego mayoría legislativa de Sheinbaum.","color":"#eab308"},
+    {"id":"us","lat":37.1,"lng":-95.7,"country":"EE.UU.","name":"Midterm Elections 2026","date":"2026-11-03","status":"upcoming","candidates":"Demócratas vs. Republicanos","turnout":"TBD","notes":"Control del Congreso en juego. Trump a mitad de mandato.","color":"#f97316"},
+    {"id":"fr","lat":48.8,"lng":2.3,"country":"Francia","name":"Elecciones Regionales","date":"2026-06-21","status":"upcoming","candidates":"Macron vs. Le Pen","turnout":"TBD","notes":"Ascenso del RN en regiones clave.","color":"#eab308"},
+    {"id":"br","lat":-15.8,"lng":-47.9,"country":"Brasil","name":"Elecciones Municipales","date":"2026-10-04","status":"upcoming","candidates":"PT vs. PL (Bolsonarismo)","turnout":"TBD","notes":"Preparación para presidenciales 2028.","color":"#eab308"},
+    {"id":"il","lat":31.8,"lng":35.2,"country":"Israel","name":"Elecciones Knesset","date":"2026-11-01","status":"upcoming","candidates":"Netanyahu vs. Oposición","turnout":"TBD","notes":"Netanyahu bajo presión por guerra en Gaza y casos judiciales.","color":"#f97316"},
+    {"id":"ve","lat":10.5,"lng":-66.9,"country":"Venezuela","name":"Elecciones Regionales","date":"2026-05-25","status":"upcoming","candidates":"Maduro (PSUV) vs. MUD","turnout":"TBD","notes":"Post-crisis electoral 2024. Edmundo González en exilio.","color":"#ef4444"},
+    {"id":"ph","lat":14.6,"lng":120.9,"country":"Filipinas","name":"Elecciones Intermedias","date":"2026-05-11","status":"upcoming","candidates":"Marcos Jr. vs. Duterte","turnout":"TBD","notes":"Ruptura alianza Marcos-Duterte. Tensión EE.UU.-China en juego.","color":"#eab308"}
+  ]
+}
