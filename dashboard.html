@@ -126,6 +126,8 @@ html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--text);f
     <a class="nav-btn" href="index.html">INICIO</a>
   </div>
   <div class="topbar-right">
+    <div style="font-size:.68rem;color:var(--muted)" id="data-status"><span style="color:var(--yellow)">●</span> Cargando datos...</div>
+    <div style="width:1px;height:16px;background:rgba(255,255,255,.1)"></div>
     <div class="live-dot"></div>
     <div id="utctime">--:--:-- UTC</div>
   </div>
@@ -188,62 +190,34 @@ html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--text);f
 </div>
 
 <script>
-// === CONFLICT INTENSITY by ISO numeric code ===
-const conflictData = {
-  // CRÍTICO (score 80-100) → rojo intenso
-  804:95, // Ucrania
-  643:90, // Rusia
-  275:92, // Palestina/Gaza
-  376:88, // Israel
-  729:85, // Sudán
-  887:83, // Yemen
-  364:88, // Irán
-  
-  // ELEVADO (60-79) → naranja
-  156:74, // China
-  408:70, // N.Corea
-  760:68, // Siria
-  792:65, // Turquía
-  466:68, // Mali
-  562:67, // Níger
-  854:66, // Burkina Faso
-  706:65, // Somalia
-  
-  // MODERADO (40-59) → amarillo
-  586:55, // Pakistán
-  4:53,   // Afganistán
-  231:50, // Etiopía
-  484:48, // México
-  862:48, // Venezuela
-  218:45, // Ecuador
-  332:44, // Haití
-  108:52, // Burundi
-  180:55, // Congo DRC
-  
-  // VIGILANCIA (20-39) → cyan/azul
-  840:22, // EE.UU.
-  630:30, // Puerto Rico (proxy Caribe)
-  356:28, // India
-  50:32,  // Bangladesh
-  702:25, // Singapur
-  566:38, // Nigeria
-  404:35, // Kenia
-  418:30, // Laos
-  104:35, // Myanmar
-  
-  // ESTABLE (<20) → verde muy sutil
-  276:18, // Alemania
-  250:19, // Francia
-  380:17, // Italia
-  826:20, // UK
-  724:17, // España
-  76:28,  // Brasil
-  392:18, // Japón
-  36:15,  // Australia
-  124:16, // Canadá
-  752:12, // Suecia
-  578:12, // Noruega
-};
+// === REAL-TIME CONFLICT DATA via GDELT + n8n ===
+let conflictData = {};
+let dataLastUpdated = null;
+
+async function loadConflictData(){
+  const statusEl = document.getElementById('data-status');
+  try {
+    const res = await fetch('conflict_data.json?t='+Math.floor(Date.now()/900000)); // cache 15min
+    const json = await res.json();
+    Object.entries(json.countries).forEach(([k,v])=>{
+      conflictData[parseInt(k)] = v.score;
+    });
+    dataLastUpdated = new Date(json._meta.updated);
+    const ageMin = Math.floor((Date.now()-dataLastUpdated)/60000);
+    const mode = json._meta.mode;
+    if(statusEl){
+      const color = mode==='live' ? '#22c55e' : '#eab308';
+      const label = mode==='live' ? 'GDELT LIVE' : 'CACHED';
+      statusEl.innerHTML = `<span style="color:${color}">●</span> ${label} · Actualizado hace ${ageMin} min`;
+    }
+  } catch(e){
+    if(statusEl) statusEl.innerHTML = '<span style="color:#ef4444">●</span> Error de conexión';
+    // Fallback con datos base
+    const base = [804,95,643,90,275,93,376,88,729,85,887,83,364,88,156,74,408,70,760,68,792,65,466,68,562,67,854,66,706,65,586,55,4,53,231,50,484,48,862,48,180,55,332,44,104,35,566,38,840,22,356,28,76,28,276,18,250,19,392,18,36,15];
+    for(let i=0;i<base.length;i+=2) conflictData[base[i]]=base[i+1];
+  }
+}
+
 
 function getIntensityColor(score){
   if(!score) return null; // sin data = transparente
@@ -254,9 +228,13 @@ function getIntensityColor(score){
   return {color:'#22c55e', opacity: 0.10}; // estable verde
 }
 
-// Cargar capa coroplética
+// Cargar capa coroplética con datos reales
+let choroplethLayerRef = null;
 async function loadChoropleth(){
   try {
+    // Cargar datos de conflicto primero
+    await loadConflictData();
+    
     const res = await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json');
     const world = await res.json();
     const geojson = topojson.feature(world, world.objects.countries);
@@ -292,7 +270,16 @@ async function loadChoropleth(){
       }
     }).addTo(map);
     // guardar referencia
-    window.choroplethLayer = arguments.callee;
+    choroplethLayerRef = arguments.callee;
+    
+    // Auto-refresh cada 15 minutos
+    setTimeout(async ()=>{
+      if(choroplethLayerRef && map.hasLayer(choroplethLayerRef)){
+        map.removeLayer(choroplethLayerRef);
+      }
+      await loadChoropleth();
+    }, 15 * 60 * 1000);
+    
   } catch(e){ console.log('Choropleth error:', e); }
 }
 

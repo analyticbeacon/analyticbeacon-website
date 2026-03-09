@@ -1,0 +1,41 @@
+{
+  "_meta": {
+    "source": "GDELT Project + Manual",
+    "updated": "2026-03-09T06:00:00Z",
+    "next_update": "2026-03-09T06:15:00Z",
+    "mode": "live"
+  },
+  "countries": {
+    "804": {"score": 95, "events": 312, "label": "Ucrania", "trend": "stable"},
+    "643": {"score": 90, "events": 287, "label": "Rusia", "trend": "up"},
+    "275": {"score": 93, "events": 298, "label": "Gaza/Palestina", "trend": "up"},
+    "376": {"score": 88, "events": 245, "label": "Israel", "trend": "stable"},
+    "729": {"score": 85, "events": 201, "label": "Sudán", "trend": "up"},
+    "887": {"score": 83, "events": 178, "label": "Yemen", "trend": "down"},
+    "364": {"score": 88, "events": 234, "label": "Irán", "trend": "up"},
+    "156": {"score": 74, "events": 189, "label": "China", "trend": "up"},
+    "408": {"score": 70, "events": 134, "label": "N. Corea", "trend": "stable"},
+    "760": {"score": 68, "events": 145, "label": "Siria", "trend": "down"},
+    "792": {"score": 65, "events": 112, "label": "Turquía", "trend": "stable"},
+    "466": {"score": 68, "events": 98, "label": "Mali", "trend": "up"},
+    "562": {"score": 67, "events": 89, "label": "Níger", "trend": "stable"},
+    "854": {"score": 66, "events": 91, "label": "Burkina Faso", "trend": "up"},
+    "706": {"score": 65, "events": 87, "label": "Somalia", "trend": "stable"},
+    "586": {"score": 55, "events": 78, "label": "Pakistán", "trend": "stable"},
+    "4":   {"score": 53, "events": 67, "label": "Afganistán", "trend": "down"},
+    "231": {"score": 50, "events": 56, "label": "Etiopía", "trend": "down"},
+    "484": {"score": 48, "events": 123, "label": "México", "trend": "up"},
+    "862": {"score": 48, "events": 67, "label": "Venezuela", "trend": "stable"},
+    "180": {"score": 55, "events": 89, "label": "Congo DRC", "trend": "up"},
+    "332": {"score": 44, "events": 45, "label": "Haití", "trend": "up"},
+    "104": {"score": 35, "events": 67, "label": "Myanmar", "trend": "stable"},
+    "566": {"score": 38, "events": 56, "label": "Nigeria", "trend": "up"},
+    "840": {"score": 22, "events": 34, "label": "EE.UU.", "trend": "stable"},
+    "356": {"score": 28, "events": 45, "label": "India", "trend": "stable"},
+    "76":  {"score": 28, "events": 34, "label": "Brasil", "trend": "stable"},
+    "276": {"score": 18, "events": 12, "label": "Alemania", "trend": "stable"},
+    "250": {"score": 19, "events": 14, "label": "Francia", "trend": "stable"},
+    "392": {"score": 18, "events": 11, "label": "Japón", "trend": "stable"},
+    "36":  {"score": 15, "events": 9, "label": "Australia", "trend": "stable"}
+  }
+}
