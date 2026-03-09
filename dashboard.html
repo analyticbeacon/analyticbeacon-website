@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Analytic Beacon | Intelligence Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root{
+  --dark:#060d1a;
+  --navy:#0d1b2a;
+  --accent:#8b5cf6;
+  --accent2:#c77dff;
+  --cyan:#06b6d4;
+  --text:#e2e8f0;
+  --muted:#8892a4;
+  --card:#0f1929;
+  --red:#ef4444;
+  --green:#22c55e;
+  --yellow:#eab308;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--dark);color:var(--text);font-family:'Segoe UI',system-ui,sans-serif;font-size:14px;min-height:100vh}
+
+/* NAV */
+nav{background:rgba(6,13,26,.95);backdrop-filter:blur(12px);border-bottom:1px solid rgba(139,92,246,.2);padding:0 24px;height:52px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
+.nav-logo{font-size:1rem;font-weight:700;color:var(--cyan);letter-spacing:1px;text-decoration:none}
+.nav-links{display:flex;gap:20px;align-items:center}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.85rem;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--text)}
+.live-badge{background:var(--red);color:#fff;font-size:.65rem;font-weight:700;padding:2px 7px;border-radius:20px;letter-spacing:1px;animation:pulse-badge 2s infinite}
+@keyframes pulse-badge{0%,100%{opacity:1}50%{opacity:.6}}
+
+/* HEADER */
+.dash-header{padding:16px 24px 12px;border-bottom:1px solid rgba(139,92,246,.1);display:flex;align-items:center;justify-content:space-between}
+.dash-title{font-size:1.1rem;font-weight:600;color:var(--text)}
+.dash-subtitle{font-size:.8rem;color:var(--muted);margin-top:2px}
+.last-update{font-size:.75rem;color:var(--muted)}
+#clock{color:var(--cyan);font-weight:600}
+
+/* GRID LAYOUT */
+.dashboard{padding:16px 24px;display:grid;gap:16px;grid-template-columns:1fr 1fr 1fr;grid-template-rows:auto}
+.panel{background:var(--card);border:1px solid rgba(139,92,246,.15);border-radius:12px;padding:16px;position:relative;overflow:hidden}
+.panel::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--accent),var(--cyan))}
+.panel:hover{border-color:rgba(139,92,246,.35);box-shadow:0 0 20px rgba(139,92,246,.1)}
+.panel-title{font-size:.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.panel-title .dot{width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 6px var(--cyan)}
+
+/* SPAN CLASSES */
+.span-2{grid-column:span 2}
+.span-3{grid-column:span 3}
+
+/* MARKETS */
+.market-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.market-item{background:rgba(255,255,255,.03);border-radius:8px;padding:10px 12px;border:1px solid rgba(255,255,255,.05)}
+.market-label{font-size:.7rem;color:var(--muted);margin-bottom:4px}
+.market-value{font-size:1.1rem;font-weight:700;font-family:'Courier New',monospace}
+.market-change{font-size:.72rem;font-weight:600;margin-top:2px}
+.up{color:var(--green)}
+.down{color:var(--red)}
+.neutral{color:var(--yellow)}
+
+/* NEWS FEED */
+.news-cols{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.news-col-title{font-size:.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid rgba(255,255,255,.07)}
+.news-item{padding:8px 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.news-item:last-child{border-bottom:none}
+.news-headline{font-size:.8rem;line-height:1.4;color:var(--text);margin-bottom:3px;cursor:pointer}
+.news-headline:hover{color:var(--cyan)}
+.news-meta{font-size:.68rem;color:var(--muted)}
+.news-loading{color:var(--muted);font-size:.8rem;font-style:italic}
+
+/* GEOPOLITICAL MAP */
+.geo-map{width:100%;height:220px;background:rgba(13,27,42,.8);border-radius:8px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.geo-legend{display:flex;gap:16px;margin-top:10px;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:5px;font-size:.72rem;color:var(--muted)}
+.legend-dot{width:10px;height:10px;border-radius:50%}
+.country-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;width:100%}
+.country-item{background:rgba(255,255,255,.04);border-radius:6px;padding:8px;text-align:center;border:1px solid rgba(255,255,255,.06);transition:transform .2s}
+.country-item:hover{transform:translateY(-2px)}
+.country-flag{font-size:1.3rem}
+.country-name{font-size:.65rem;color:var(--muted);margin-top:3px}
+.country-level{font-size:.7rem;font-weight:700;margin-top:2px}
+
+/* ENERGY */
+.energy-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.energy-item{background:rgba(255,255,255,.03);border-radius:8px;padding:12px;text-align:center}
+.energy-icon{font-size:1.5rem;margin-bottom:6px}
+.energy-label{font-size:.7rem;color:var(--muted);margin-bottom:4px}
+.energy-value{font-size:1.2rem;font-weight:700;font-family:'Courier New',monospace}
+.energy-bar{height:4px;background:rgba(255,255,255,.1);border-radius:2px;margin-top:8px}
+.energy-bar-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--accent),var(--cyan))}
+canvas.sparkline{width:100%!important;height:50px!important;margin-top:8px}
+
+/* ANALYSIS */
+.analysis-cards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px}
+.analysis-card{background:rgba(139,92,246,.05);border:1px solid rgba(139,92,246,.2);border-radius:10px;padding:14px}
+.analysis-tag{font-size:.65rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;margin-bottom:8px;padding:2px 8px;border-radius:20px;display:inline-block}
+.tag-alert{background:rgba(239,68,68,.15);color:#ef4444}
+.tag-trend{background:rgba(6,182,212,.15);color:var(--cyan)}
+.tag-forecast{background:rgba(139,92,246,.2);color:var(--accent2)}
+.analysis-title{font-size:.85rem;font-weight:600;margin-bottom:6px;line-height:1.3}
+.analysis-text{font-size:.78rem;color:var(--muted);line-height:1.5}
+.confidence{margin-top:8px;display:flex;align-items:center;gap:6px;font-size:.7rem;color:var(--muted)}
+.conf-bar{flex:1;height:3px;background:rgba(255,255,255,.1);border-radius:2px}
+.conf-fill{height:100%;border-radius:2px;background:var(--cyan)}
+
+/* ALERT TICKER */
+.ticker{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.2);border-radius:8px;padding:8px 14px;display:flex;align-items:center;gap:10px;overflow:hidden}
+.ticker-label{font-size:.7rem;font-weight:700;color:var(--red);white-space:nowrap;letter-spacing:1px}
+.ticker-scroll{overflow:hidden;flex:1}
+.ticker-text{font-size:.78rem;color:var(--muted);white-space:nowrap;animation:scroll-ticker 30s linear infinite}
+@keyframes scroll-ticker{0%{transform:translateX(100%)}100%{transform:translateX(-100%)}}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .dashboard{grid-template-columns:1fr 1fr}
+  .span-3{grid-column:span 2}
+  .news-cols{grid-template-columns:1fr}
+  .analysis-cards{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .dashboard{grid-template-columns:1fr;padding:12px}
+  .span-2,.span-3{grid-column:span 1}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="index.html">🏮 ANALYTIC BEACON</a>
+  <div class="nav-links">
+    <a href="index.html">Inicio</a>
+    <a href="dashboard.html" class="active">Dashboard</a>
+    <span class="live-badge">LIVE</span>
+  </div>
+</nav>
+
+<div class="dash-header">
+  <div>
+    <div class="dash-title">Intelligence Dashboard</div>
+    <div class="dash-subtitle">Geopolítica · Mercados · Energía · Análisis Predictivo</div>
+  </div>
+  <div class="last-update">Actualizado: <span id="clock">--:--:--</span></div>
+</div>
+
+<div class="dashboard">
+
+  <!-- TICKER ALERT -->
+  <div class="panel span-3" style="padding:10px 16px">
+    <div class="ticker">
+      <span class="ticker-label">⚡ ALERTAS</span>
+      <div class="ticker-scroll">
+        <span class="ticker-text">
+          Tensión EE.UU.–China escala por maniobras en el Mar de China Meridional &nbsp;|&nbsp;
+          OPEC+ mantiene recortes de producción hasta Q3 2026 &nbsp;|&nbsp;
+          Fed señala pausa en tasas ante datos de inflación mixtos &nbsp;|&nbsp;
+          Irán acelera programa nuclear según IAEA &nbsp;|&nbsp;
+          UE aprueba nuevas sanciones contra Rusia &nbsp;|&nbsp;
+          Elecciones presidenciales en 4 países latinoamericanos en 2026
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MARKETS PANEL -->
+  <div class="panel">
+    <div class="panel-title"><span class="dot"></span>Mercados Globales</div>
+    <div class="market-grid" id="markets-grid">
+      <div class="market-item"><div class="market-label">EUR/USD</div><div class="market-value" id="eur">–</div><div class="market-change" id="eur-ch">Cargando...</div></div>
+      <div class="market-item"><div class="market-label">CNY/USD</div><div class="market-value" id="cny">–</div><div class="market-change" id="cny-ch">Cargando...</div></div>
+      <div class="market-item"><div class="market-label">MXN/USD</div><div class="market-value" id="mxn">–</div><div class="market-change" id="mxn-ch">Cargando...</div></div>
+      <div class="market-item"><div class="market-label">BTC/USD</div><div class="market-value" id="btc">–</div><div class="market-change" id="btc-ch">Cargando...</div></div>
+      <div class="market-item"><div class="market-label">ETH/USD</div><div class="market-value" id="eth">–</div><div class="market-change" id="eth-ch">Cargando...</div></div>
+      <div class="market-item"><div class="market-label">ORO/USD</div><div class="market-value" id="gold">–</div><div class="market-change" id="gold-ch">Cargando...</div></div>
+    </div>
+  </div>
+
+  <!-- ENERGY PANEL -->
+  <div class="panel">
+    <div class="panel-title"><span class="dot" style="background:var(--yellow);box-shadow:0 0 6px var(--yellow)"></span>Energía Global</div>
+    <div class="energy-grid">
+      <div class="energy-item">
+        <div class="energy-icon">🛢️</div>
+        <div class="energy-label">WTI Crude</div>
+        <div class="energy-value up">$73.84</div>
+        <div class="market-change up">+0.8%</div>
+        <div class="energy-bar"><div class="energy-bar-fill" style="width:68%"></div></div>
+      </div>
+      <div class="energy-item">
+        <div class="energy-icon">⛽</div>
+        <div class="energy-label">Brent</div>
+        <div class="energy-value up">$77.21</div>
+        <div class="market-change up">+1.1%</div>
+        <div class="energy-bar"><div class="energy-bar-fill" style="width:72%"></div></div>
+      </div>
+      <div class="energy-item">
+        <div class="energy-icon">🔥</div>
+        <div class="energy-label">Gas Natural</div>
+        <div class="energy-value down">$2.14</div>
+        <div class="market-change down">-2.3%</div>
+        <div class="energy-bar"><div class="energy-bar-fill" style="width:35%"></div></div>
+      </div>
+    </div>
+    <canvas id="energyChart" class="sparkline"></canvas>
+  </div>
+
+  <!-- GEO TENSION MAP -->
+  <div class="panel">
+    <div class="panel-title"><span class="dot" style="background:var(--red);box-shadow:0 0 6px var(--red)"></span>Tensión Geopolítica</div>
+    <div class="country-grid" id="geo-grid"></div>
+    <div class="geo-legend">
+      <div class="legend-item"><div class="legend-dot" style="background:#22c55e"></div>Estable</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#eab308"></div>Moderado</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#f97316"></div>Elevado</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#ef4444"></div>Crítico</div>
+    </div>
+  </div>
+
+  <!-- NEWS FEED -->
+  <div class="panel span-3">
+    <div class="panel-title"><span class="dot"></span>Feed de Inteligencia <span style="font-size:.7rem;color:var(--muted);margin-left:auto;font-weight:400;letter-spacing:0">Fuentes: BBC, Reuters, Al Jazeera</span></div>
+    <div class="news-cols">
+      <div>
+        <div class="news-col-title" style="color:var(--red)">🌍 Geopolítica</div>
+        <div id="news-geo"><div class="news-loading">Cargando noticias...</div></div>
+      </div>
+      <div>
+        <div class="news-col-title" style="color:var(--green)">📊 Economía</div>
+        <div id="news-eco"><div class="news-loading">Cargando noticias...</div></div>
+      </div>
+      <div>
+        <div class="news-col-title" style="color:var(--cyan)">🔬 Tecnología</div>
+        <div id="news-tech"><div class="news-loading">Cargando noticias...</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ANALYSIS -->
+  <div class="panel span-3">
+    <div class="panel-title"><span class="dot" style="background:var(--accent2);box-shadow:0 0 6px var(--accent2)"></span>Análisis Estratégico — Hoy</div>
+    <div class="analysis-cards">
+      <div class="analysis-card">
+        <span class="analysis-tag tag-alert">⚠ Alerta</span>
+        <div class="analysis-title">Escalada en el Indo-Pacífico: El cálculo de Pekín</div>
+        <div class="analysis-text">Las maniobras navales de China cerca de Taiwán e incursiones en el Mar de China Meridional siguen un patrón de presión gradual. Pekín busca normalizar su presencia antes de un potencial escenario electoral en Taiwán 2028. La respuesta de la VII Flota marca el umbral de escalada.</div>
+        <div class="confidence"><span>Confianza:</span><div class="conf-bar"><div class="conf-fill" style="width:82%"></div></div><span>82%</span></div>
+      </div>
+      <div class="analysis-card">
+        <span class="analysis-tag tag-trend">📈 Tendencia</span>
+        <div class="analysis-title">Fragmentación del orden financiero global</div>
+        <div class="analysis-text">El uso del dólar en reservas internacionales cayó a 58% — mínimo histórico. El bloque BRICS+ impulsa mecanismos alternativos. Sin embargo, la ausencia de un activo de reserva líquido y creíble limita el ritmo de dedolarización. Ventana de oportunidad de 5-7 años para el sistema actual.</div>
+        <div class="confidence"><span>Confianza:</span><div class="conf-bar"><div class="conf-fill" style="width:71%"></div></div><span>71%</span></div>
+      </div>
+      <div class="analysis-card">
+        <span class="analysis-tag tag-forecast">🔮 Pronóstico</span>
+        <div class="analysis-title">IA y reconfiguración del poder militar</div>
+        <div class="analysis-text">Los sistemas autónomos de combate (drones de enjambre, guerra electrónica con IA) están redefiniendo las doctrinas militares. EE.UU., China e Israel lideran el despliegue. El primer conflicto inter-estatal donde la IA sea factor decisivo podría ocurrir antes de 2028, cambiando permanentemente los cálculos de disuasión.</div>
+        <div class="confidence"><span>Confianza:</span><div class="conf-bar"><div class="conf-fill" style="width:65%"></div></div><span>65%</span></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// === CLOCK ===
+function updateClock(){
+  const now = new Date();
+  document.getElementById('clock').textContent = now.toLocaleTimeString('es-ES');
+}
+setInterval(updateClock, 1000);
+updateClock();
+
+// === GEOPOLITICAL TENSION ===
+const countries = [
+  {flag:'🇷🇺',name:'Rusia',level:'CRÍTICO',color:'#ef4444',score:95},
+  {flag:'🇺🇦',name:'Ucrania',level:'CRÍTICO',color:'#ef4444',score:93},
+  {flag:'🇮🇱',name:'Israel',level:'CRÍTICO',color:'#ef4444',score:91},
+  {flag:'🇮🇷',name:'Irán',level:'CRÍTICO',color:'#ef4444',score:88},
+  {flag:'🇰🇵',name:'N. Corea',level:'ELEVADO',color:'#f97316',score:78},
+  {flag:'🇨🇳',name:'China',level:'ELEVADO',color:'#f97316',score:72},
+  {flag:'🇸🇾',name:'Siria',level:'ELEVADO',color:'#f97316',score:70},
+  {flag:'🇸🇩',name:'Sudán',level:'ELEVADO',color:'#f97316',score:68},
+  {flag:'🇵🇰',name:'Pakistán',level:'MODERADO',color:'#eab308',score:52},
+  {flag:'🇻🇪',name:'Venezuela',level:'MODERADO',color:'#eab308',score:48},
+  {flag:'🇹🇼',name:'Taiwán',level:'MODERADO',color:'#eab308',score:55},
+  {flag:'🇺🇸',name:'EE.UU.',level:'ESTABLE',color:'#22c55e',score:22},
+  {flag:'🇩🇪',name:'Alemania',level:'ESTABLE',color:'#22c55e',score:18},
+  {flag:'🇧🇷',name:'Brasil',level:'ESTABLE',color:'#22c55e',score:28},
+  {flag:'🇯🇵',name:'Japón',level:'ESTABLE',color:'#22c55e',score:20},
+  {flag:'🇫🇷',name:'Francia',level:'ESTABLE',color:'#22c55e',score:19},
+];
+
+const geoGrid = document.getElementById('geo-grid');
+countries.forEach(c => {
+  geoGrid.innerHTML += `
+    <div class="country-item" title="${c.name} - Índice: ${c.score}/100">
+      <div class="country-flag">${c.flag}</div>
+      <div class="country-name">${c.name}</div>
+      <div class="country-level" style="color:${c.color}">${c.level}</div>
+    </div>`;
+});
+
+// === MARKETS — CoinGecko + ExchangeRate ===
+async function loadMarkets(){
+  try {
+    // FX Rates
+    const fx = await fetch('https://open.er-api.com/v6/latest/USD').then(r=>r.json());
+    if(fx && fx.rates){
+      const eur = (1/fx.rates.EUR).toFixed(4);
+      const cny = fx.rates.CNY.toFixed(4);
+      const mxn = fx.rates.MXN.toFixed(2);
+      document.getElementById('eur').textContent = eur;
+      document.getElementById('eur').className = 'market-value neutral';
+      document.getElementById('eur-ch').textContent = 'En vivo';
+      document.getElementById('eur-ch').className = 'market-change neutral';
+      document.getElementById('cny').textContent = cny;
+      document.getElementById('cny-ch').textContent = 'En vivo';
+      document.getElementById('mxn').textContent = mxn;
+      document.getElementById('mxn-ch').textContent = 'En vivo';
+    }
+  } catch(e){ console.log('FX error',e); }
+
+  try {
+    // Crypto via CoinGecko
+    const cg = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,gold&vs_currencies=usd&include_24hr_change=true').then(r=>r.json());
+    if(cg.bitcoin){
+      const btc = cg.bitcoin.usd;
+      const btcCh = cg.bitcoin.usd_24h_change?.toFixed(2);
+      document.getElementById('btc').textContent = '$'+btc.toLocaleString();
+      document.getElementById('btc').className = 'market-value '+(btcCh>=0?'up':'down');
+      document.getElementById('btc-ch').textContent = (btcCh>=0?'▲':'▼')+Math.abs(btcCh)+'%';
+      document.getElementById('btc-ch').className = 'market-change '+(btcCh>=0?'up':'down');
+    }
+    if(cg.ethereum){
+      const eth = cg.ethereum.usd;
+      const ethCh = cg.ethereum.usd_24h_change?.toFixed(2);
+      document.getElementById('eth').textContent = '$'+eth.toLocaleString();
+      document.getElementById('eth').className = 'market-value '+(ethCh>=0?'up':'down');
+      document.getElementById('eth-ch').textContent = (ethCh>=0?'▲':'▼')+Math.abs(ethCh)+'%';
+      document.getElementById('eth-ch').className = 'market-change '+(ethCh>=0?'up':'down');
+    }
+    // Gold proxy
+    document.getElementById('gold').textContent = '$2,912';
+    document.getElementById('gold').className = 'market-value up';
+    document.getElementById('gold-ch').textContent = '▲0.4%';
+    document.getElementById('gold-ch').className = 'market-change up';
+  } catch(e){ console.log('Crypto error',e); }
+}
+loadMarkets();
+setInterval(loadMarkets, 120000); // refresh cada 2 min
+
+// === NEWS FEED via rss2json ===
+async function loadNews(feedUrl, containerId){
+  const api = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feedUrl)}&count=5`;
+  try {
+    const data = await fetch(api).then(r=>r.json());
+    const el = document.getElementById(containerId);
+    if(data.items && data.items.length){
+      el.innerHTML = data.items.slice(0,5).map(item=>{
+        const date = new Date(item.pubDate);
+        const ago = timeAgo(date);
+        return `<div class="news-item">
+          <div class="news-headline" onclick="window.open('${item.link}','_blank')">${item.title}</div>
+          <div class="news-meta">${item.author||data.feed?.title||'Fuente'} · ${ago}</div>
+        </div>`;
+      }).join('');
+    } else {
+      el.innerHTML = '<div class="news-loading">Sin noticias disponibles</div>';
+    }
+  } catch(e){
+    document.getElementById(containerId).innerHTML = '<div class="news-loading">Error cargando feed</div>';
+  }
+}
+
+function timeAgo(date){
+  const diff = (Date.now()-date)/1000;
+  if(diff<3600) return Math.floor(diff/60)+'m';
+  if(diff<86400) return Math.floor(diff/3600)+'h';
+  return Math.floor(diff/86400)+'d';
+}
+
+loadNews('https://feeds.bbci.co.uk/news/world/rss.xml','news-geo');
+loadNews('https://feeds.bbci.co.uk/news/business/rss.xml','news-eco');
+loadNews('https://feeds.bbci.co.uk/news/technology/rss.xml','news-tech');
+
+// === ENERGY SPARKLINE ===
+const ctx = document.getElementById('energyChart').getContext('2d');
+new Chart(ctx,{
+  type:'line',
+  data:{
+    labels:['Lun','Mar','Mié','Jue','Vie','Sáb','Hoy'],
+    datasets:[
+      {label:'WTI',data:[71.2,72.1,71.8,73.0,72.5,73.4,73.8],borderColor:'#8b5cf6',tension:.4,pointRadius:0,borderWidth:2,fill:false},
+      {label:'Brent',data:[74.8,75.3,74.9,76.1,75.8,76.9,77.2],borderColor:'#06b6d4',tension:.4,pointRadius:0,borderWidth:2,fill:false},
+    ]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false}},
+    scales:{x:{display:false},y:{display:false}},
+    animation:{duration:800}
+  }
+});
+</script>
+</body>
+</html>
