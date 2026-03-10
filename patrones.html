@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patrones Históricos | Analytic Beacon</title>
+<style>
+  :root {
+    --bg: #0a0a0f; --surface: #12121a; --card: #1a1a2e; --border: #2a2a4a;
+    --purple: #7c3aed; --cyan: #06b6d4; --fuchsia: #d946ef;
+    --green: #10b981; --red: #ef4444; --amber: #f59e0b; --orange: #f97316;
+    --text: #e2e8f0; --muted: #94a3b8;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { background:var(--bg); color:var(--text); font-family:'Segoe UI',system-ui,sans-serif; }
+
+  nav { background:var(--surface); border-bottom:1px solid var(--border); padding:0 2rem; display:flex; align-items:center; gap:2rem; height:56px; }
+  .nav-logo { font-weight:800; font-size:1.1rem; color:var(--cyan); letter-spacing:1px; text-decoration:none; }
+  .nav-links { display:flex; gap:1.5rem; }
+  .nav-links a { color:var(--muted); text-decoration:none; font-size:.85rem; transition:color .2s; }
+  .nav-links a:hover, .nav-links a.active { color:var(--cyan); }
+
+  .container { max-width:1100px; margin:0 auto; padding:2rem 1rem; }
+
+  .hero { text-align:center; margin-bottom:3rem; }
+  .hero h1 { font-size:2.2rem; font-weight:800; background:linear-gradient(135deg,var(--amber),var(--fuchsia),var(--cyan)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:.6rem; }
+  .hero p { color:var(--muted); font-size:.95rem; max-width:680px; margin:0 auto 1rem; line-height:1.7; }
+  .quote { background:rgba(245,158,11,.07); border-left:3px solid var(--amber); border-radius:0 8px 8px 0; padding:1rem 1.5rem; max-width:680px; margin:0 auto; font-style:italic; color:var(--text); font-size:.9rem; }
+  .quote cite { display:block; margin-top:.5rem; font-size:.75rem; color:var(--amber); font-style:normal; font-weight:700; }
+
+  /* FILTER TABS */
+  .tabs { display:flex; gap:.6rem; flex-wrap:wrap; margin-bottom:2rem; }
+  .tab { background:rgba(255,255,255,.04); border:1px solid var(--border); border-radius:20px; padding:.4rem 1rem; font-size:.78rem; cursor:pointer; transition:all .2s; color:var(--muted); }
+  .tab:hover { border-color:var(--purple); color:var(--text); }
+  .tab.active { background:rgba(124,58,237,.2); border-color:var(--purple); color:var(--purple); font-weight:700; }
+
+  /* FRAMEWORKS GRID */
+  .frameworks { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:1.5rem; margin-bottom:3rem; }
+  .fw-card { background:var(--card); border:1px solid var(--border); border-radius:14px; overflow:hidden; transition:transform .2s, border-color .2s; }
+  .fw-card:hover { transform:translateY(-3px); border-color:var(--purple); }
+  .fw-header { padding:1.2rem 1.5rem .8rem; border-bottom:1px solid var(--border); }
+  .fw-icon { font-size:1.8rem; margin-bottom:.5rem; }
+  .fw-name { font-size:1rem; font-weight:800; margin-bottom:.2rem; }
+  .fw-author { font-size:.72rem; color:var(--muted); }
+  .fw-body { padding:1.2rem 1.5rem; }
+  .fw-desc { font-size:.83rem; color:var(--muted); line-height:1.6; margin-bottom:1rem; }
+  .fw-formula { background:rgba(255,255,255,.03); border-radius:8px; padding:.8rem 1rem; font-family:monospace; font-size:.75rem; color:var(--cyan); margin-bottom:1rem; white-space:pre-line; }
+  .fw-tag { display:inline-block; font-size:.68rem; font-weight:700; padding:3px 8px; border-radius:12px; margin-right:.4rem; margin-bottom:.3rem; }
+
+  /* ANALOGIES TABLE */
+  .section-title { font-size:1.1rem; font-weight:800; color:var(--text); margin-bottom:1.2rem; display:flex; align-items:center; gap:.6rem; }
+  .section-title span { color:var(--cyan); }
+
+  .analog-table { width:100%; border-collapse:collapse; margin-bottom:3rem; }
+  .analog-table th { background:rgba(255,255,255,.04); padding:.7rem 1rem; font-size:.72rem; color:var(--muted); text-transform:uppercase; letter-spacing:1px; text-align:left; border-bottom:1px solid var(--border); }
+  .analog-table td { padding:.9rem 1rem; font-size:.82rem; border-bottom:1px solid rgba(255,255,255,.04); vertical-align:top; }
+  .analog-table tr:hover td { background:rgba(255,255,255,.02); }
+  .event-current { color:var(--amber); font-weight:700; }
+  .event-past { color:var(--muted); }
+  .match-score { display:inline-block; padding:3px 8px; border-radius:10px; font-size:.7rem; font-weight:700; }
+  .match-high { background:rgba(16,185,129,.15); color:var(--green); }
+  .match-med  { background:rgba(245,158,11,.15); color:var(--amber); }
+  .match-low  { background:rgba(239,68,68,.15);  color:var(--red);   }
+
+  /* TIMELINE */
+  .timeline { position:relative; padding-left:2.5rem; margin-bottom:3rem; }
+  .timeline::before { content:''; position:absolute; left:.8rem; top:0; bottom:0; width:2px; background:linear-gradient(180deg,var(--purple),var(--cyan),var(--fuchsia)); border-radius:1px; }
+  .tl-item { position:relative; margin-bottom:1.8rem; }
+  .tl-dot { position:absolute; left:-1.8rem; top:.3rem; width:14px; height:14px; border-radius:50%; border:2px solid; background:var(--bg); }
+  .tl-year { font-size:.72rem; font-weight:700; margin-bottom:.3rem; }
+  .tl-title { font-size:.9rem; font-weight:700; margin-bottom:.3rem; }
+  .tl-desc { font-size:.8rem; color:var(--muted); line-height:1.5; }
+  .tl-analog { font-size:.72rem; color:var(--fuchsia); margin-top:.3rem; font-style:italic; }
+
+  /* PREDICTION BOX */
+  .prediction-box { background:rgba(124,58,237,.08); border:1px solid rgba(124,58,237,.3); border-radius:12px; padding:1.5rem; margin-bottom:3rem; }
+  .pred-title { font-size:.85rem; font-weight:800; color:var(--purple); margin-bottom:1rem; letter-spacing:1px; }
+  .pred-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(200px,1fr)); gap:1rem; }
+  .pred-item { background:rgba(255,255,255,.03); border-radius:8px; padding:.9rem; }
+  .pred-label { font-size:.7rem; color:var(--muted); margin-bottom:.3rem; }
+  .pred-value { font-size:.9rem; font-weight:700; }
+  .pred-horizon { font-size:.68rem; color:var(--muted); margin-top:.2rem; }
+
+  /* CYCLE WHEEL - simplified */
+  .cycle-section { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1.5rem; margin-bottom:3rem; }
+  .cycle-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; margin-top:1rem; }
+  @media(max-width:640px){ .cycle-grid { grid-template-columns:repeat(2,1fr); } }
+  .cycle-item { text-align:center; padding:1rem; border-radius:10px; border:1px solid var(--border); }
+  .cycle-icon { font-size:1.5rem; margin-bottom:.4rem; }
+  .cycle-name { font-size:.78rem; font-weight:700; margin-bottom:.3rem; }
+  .cycle-desc { font-size:.7rem; color:var(--muted); }
+  .cycle-now { border-color:var(--amber); background:rgba(245,158,11,.07); }
+  .cycle-now .cycle-name { color:var(--amber); }
+
+  .disclaimer { font-size:.72rem; color:var(--muted); text-align:center; padding:1.5rem; border-top:1px solid var(--border); margin-top:2rem; }
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-logo" href="index.html">⬡ ANALYTIC BEACON</a>
+  <div class="nav-links">
+    <a href="index.html">Inicio</a>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="patrones.html" class="active">Patrones</a>
+    <a href="predictor.html">Predictor</a>
+  </div>
+</nav>
+
+<div class="container">
+
+  <div class="hero">
+    <h1>🔄 Patrones Históricos</h1>
+    <p>La historia no se repite, pero rima. Este motor analiza los eventos del presente a través de los marcos teóricos que han demostrado mayor poder predictivo en política mundial: ciclos civilizatorios, teoría de juegos, patrones de poder y crisis recurrentes.</p>
+    <div class="quote">
+      "Los grandes actores de la historia no actúan aleatoriamente. Siguen estructuras que se repiten porque la naturaleza humana no cambia."
+      <cite>— Ray Dalio, Principios para Entender el Gran Orden Mundial en Cambio</cite>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <div class="tab active" onclick="filterCards('all',this)">Todos los marcos</div>
+    <div class="tab" onclick="filterCards('poder',this)">Poder Global</div>
+    <div class="tab" onclick="filterCards('economico',this)">Ciclos Económicos</div>
+    <div class="tab" onclick="filterCards('social',this)">Ciclos Sociales</div>
+    <div class="tab" onclick="filterCards('conflicto',this)">Conflicto y Guerra</div>
+  </div>
+
+  <!-- FRAMEWORKS -->
+  <div class="frameworks" id="frameworks">
+
+    <div class="fw-card" data-cat="poder conflicto">
+      <div class="fw-header">
+        <div class="fw-icon">⚔️</div>
+        <div class="fw-name">Trampa de Tucídides</div>
+        <div class="fw-author">Graham Allison — Harvard Kennedy School, 2017</div>
+      </div>
+      <div class="fw-body">
+        <div class="fw-desc">Cuando una potencia emergente desafía a una potencia establecida, el resultado estructural es el conflicto. De 16 casos históricos identificados, 12 terminaron en guerra. El miedo de la potencia establecida y la ambición de la emergente crean dinámica de colisión casi inevitable.</div>
+        <div class="fw-formula">Potencia Establecida (EE.UU.)
++ Potencia Emergente (China)
++ Fricción Comercial/Militar
+= Riesgo de Conflicto: 75%</div>
+        <span class="fw-tag" style="background:rgba(239,68,68,.15);color:#ef4444">Aplicable HOY</span>
+        <span class="fw-tag" style="background:rgba(255,255,255,.06);color:#94a3b8">USA-China 2020s</span>
+        <span class="fw-tag" style="background:rgba(255,255,255,.06);color:#94a3b8">Análogo: Atenas-Esparta 431 AC</span>
+      </div>
+    </div>
+
+    <div class="fw-card" data-cat="economico poder">
+      <div class="fw-header">
+        <div class="fw-icon">📊</div>
+        <div class="fw-name">El Gran Ciclo de la Deuda</div>
+        <div class="fw-author">Ray Dalio — Bridgewater Associates, 2021</div>
+      </div>
+      <div class="fw-body">
+        <div class="fw-desc">Los imperios y divisas mundiales siguen un ciclo predecible: auge (productividad + crédito), consolidación, exceso de deuda, impresión de moneda, devaluación, conflicto interno, cambio de orden mundial. El USD está en fase de declive relativo según este modelo.</div>
+        <div class="fw-formula">Productividad → Crédito → Deuda
+→ Monetización → Inflación
+→ Conflicto → Nuevo Orden
+Duración: 75-100 años por ciclo</div>
+        <span class="fw-tag" style="background:rgba(245,158,11,.15);color:#f59e0b">Aplicable HOY</span>
+        <span class="fw-tag" style="background:rgba(255,255,255,.06);color:#94a3b8">USD como libra esterlina 1944</span>
+        <span class="fw-tag" style="background:rgba(255,255,255,.06);color:#94a3b8">China como USA emergente</span>
+      </div>
+    </div>
+
+    <div class="fw-card" data-cat="social">
+      <div class="fw-header">
+        <div class="fw-icon">🌊</div>
+        <div class="fw-name">La Cuarta Vuelta</div>
+        <div class="fw-author">William Strauss & Neil Howe — 1997</div>
+      </div>
+      <div class="fw-body">
+        <div class="fw-desc">Las sociedades anglo-americanas siguen ciclos de 80-100 años divididos en 4 turnos: Alto (instituciones fuertes), Despertar (revuelta cultural), Deshilachamiento (individualismo), Crisis (catástrofe regeneradora). Estamos en el Cuarto Turno desde ~2008.</div>
+        <div class="fw-formula">1er Turno: ~1946-1964 (Post-WWII)
+2do Turno: ~1964-1984 (Revolución cultural)
+3er Turno: ~1984-2008 (Individualismo)
+4to Turno: ~2008-2030 (CRISIS ACTUAL)</div>
+        <span class="fw-tag" style="background:rgba(239,68,68,.15);color:#ef4444">Crisis activa 2020s</span>
+        <span class="fw-tag" style="background:rgba(255,255,255,.06);color:#94a3b8">Análogo: 1940s</span>
+        <span class="fw-tag" style="background:rgba(255,255,255,.06);color:#94a3b8">Resolución: ~2026-2030</span>
+      </div>
+    </div>
+
+    <div class="fw-card" data-cat="social poder">
+      <div class="fw-header">
+        <div class="fw-icon">🏛️</div>
+        <div class="fw-name">Asabiyyah — Cohesión Social</div>
+        <div class="fw-author">Ibn Khaldun — Al-Muqaddimah, 1377</div>
+      </div>
+      <div class="fw-body">
+        <div class="fw-desc">Todo poder político surge de la cohesión grupal (asabiyyah). Los imperios nacen con alta cohesión, conquistan, se enriquecen, se ablandan, pierden cohesión y caen ante nuevos grupos con mayor solidaridad interna. Ciclo promedio: 3 generaciones (~120 años). Válido para estados-nación modernos.</div>
+        <div class="fw-formula">Cohesión alta → Conquista
+→ Riqueza → Lujo → División
+→ Debilidad → Colapso
+Tiempo promedio: 120 años</div>
+        <span class="fw-tag" style="background:rgba(217,70,239,.15);color:#d946ef">Marco Clásico</span>
+        <span class="fw-tag" style="background:rgba(255,255,255,.06);color:#94a3b8">USA: asabiyyah en declive</span>
+        <span class="fw-tag" style="background:rgba(255,255,255,.06);color:#94a3b8">China: asabiyyah en alza</span>
+      </div>
+    </div>
+
+    <div class="fw-card" data-cat="economico">
+      <div class="fw-header">
+        <div class="fw-icon">〰️</div>
+        <div class="fw-name">Ondas de Kondrátiev</div>
+        <div class="fw-author">Nikolai Kondrátiev — 1925 | Joseph Schumpeter — 1939</div>
+      </div>
+      <div class="fw-body">
+        <div class="fw-desc">La economía global sigue superciclos de 50-60 años impulsados por revoluciones tecnológicas. Cada ola tiene fase ascendente (innovación, crecimiento) y descendente (saturación, crisis). Estamos en la Ola 6: IA, biotecnología, energía verde. La fase ascendente comenzó ~2020.</div>
+        <div class="fw-formula">Ola 1: 1780s — Máquina de vapor
+Ola 3: 1880s — Electricidad
+Ola 5: 1990s — Internet/digital
+Ola 6: 2020s — IA + Bio + Verde
+→ Pico estimado: 2040-2050</div>
+        <span class="fw-tag" style="background:rgba(16,185,129,.15);color:#10b981">Ola ascendente</span>
+        <span class="fw-tag" style="background:rgba(255,255,255,.06);color:#94a3b8">IA = locomotora de la ola</span>
+      </div>
+    </div>
+
+    <div class="fw-card" data-cat="conflicto">
+      <div class="fw-header">
+        <div class="fw-icon">🎲</div>
+        <div class="fw-name">Teoría de Juegos en Geopolítica</div>
+        <div class="fw-author">John Nash — 1950 | Thomas Schelling — 1960</div>
+      </div>
+      <div class="fw-body">
+        <div class="fw-desc">Los actores políticos son jugadores racionales que maximizan su utilidad esperada. El Dilema del Prisionero explica por qué dos países cooperarían más pero desconfían. El Equilibrio de Nash predice puntos de estabilidad en conflictos. La escalada es racional cuando el costo de no actuar supera el de actuar.</div>
+        <div class="fw-formula">Juego USA-China:
+• Cooperar/Cooperar = óptimo colectivo
+• Defección unilateral = ventaja temporal
+• Defección/Defección = guerra comercial
+→ Equilibrio actual: defección mutua</div>
+        <span class="fw-tag" style="background:rgba(6,182,212,.15);color:#06b6d4">Analítico</span>
+        <span class="fw-tag" style="background:rgba(255,255,255,.06);color:#94a3b8">Dilema del prisionero</span>
+        <span class="fw-tag" style="background:rgba(255,255,255,.06);color:#94a3b8">Guerra comercial 2024-25</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ANALOGIAS TABLA -->
+  <div class="section-title">🔍 Eventos Actuales — <span>Análogos Históricos Mapeados</span></div>
+  <table class="analog-table">
+    <thead>
+      <tr>
+        <th>Evento Actual (2025-2026)</th>
+        <th>Análogo Histórico</th>
+        <th>Marco Aplicado</th>
+        <th>Similitud</th>
+        <th>Proyección</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="event-current">Guerra comercial USA-China (aranceles 145%)</span></td>
+        <td><span class="event-past">USA-Japón 1985-1995 (Plaza Accord + guerras comerciales)</span></td>
+        <td>Trampa de Tucídides</td>
+        <td><span class="match-score match-high">Alta 82%</span></td>
+        <td>Acuerdo forzado o escalada a conflicto tecnológico. Resolución: 3-5 años.</td>
+      </tr>
+      <tr>
+        <td><span class="event-current">Fragmentación del orden liberal internacional</span></td>
+        <td><span class="event-past">Colapso del orden de Versalles 1933-1939</span></td>
+        <td>Gran Ciclo de Deuda + Cuarta Vuelta</td>
+        <td><span class="match-score match-high">Alta 76%</span></td>
+        <td>Nuevo orden multipolar emergente. Período de mayor inestabilidad: 2026-2030.</td>
+      </tr>
+      <tr>
+        <td><span class="event-current">Auge de la IA como poder geopolítico</span></td>
+        <td><span class="event-past">Carrera nuclear 1945-1962 (Hiroshima → Crisis de Cuba)</span></td>
+        <td>Teoría de Juegos + Onda Kondrátiev</td>
+        <td><span class="match-score match-med">Media 65%</span></td>
+        <td>Tratado de control de IA probable 2028-2032, análogo al Tratado de No Proliferación.</td>
+      </tr>
+      <tr>
+        <td><span class="event-current">Dolarización vs desdolarización (BRICS+)</span></td>
+        <td><span class="event-past">Libra esterlina → USD como reserva global (1913-1944)</span></td>
+        <td>Gran Ciclo de Deuda (Dalio)</td>
+        <td><span class="match-score match-high">Alta 79%</span></td>
+        <td>Transición gradual 20-30 años. Sin colapso súbito del USD — sí declive relativo.</td>
+      </tr>
+      <tr>
+        <td><span class="event-current">Conflicto Rusia-Ucrania (año 4)</span></td>
+        <td><span class="event-past">Guerra de Corea 1950-1953 (potencias proxy, congelamiento)</span></td>
+        <td>Trampa de Tucídides + Asabiyyah</td>
+        <td><span class="match-score match-med">Media 68%</span></td>
+        <td>Armisticio sin solución territorial definitiva. Zona desmilitarizada similar a la coreana.</td>
+      </tr>
+      <tr>
+        <td><span class="event-current">Polarización política extrema en democracias occidentales</span></td>
+        <td><span class="event-past">USA 1850-1860 (pre-Guerra Civil) + Weimar 1928-1933</span></td>
+        <td>Cuarta Vuelta (Strauss-Howe)</td>
+        <td><span class="match-score match-med">Media 61%</span></td>
+        <td>Crisis institucional aguda 2026-2028. Resolución vía reforma constitucional o crisis electoral.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- CICLO ACTUAL -->
+  <div class="cycle-section">
+    <div class="section-title">🌐 ¿Dónde estamos en los ciclos? — 2026</div>
+    <div class="cycle-grid">
+      <div class="cycle-item">
+        <div class="cycle-icon">🌱</div>
+        <div class="cycle-name">Onda Kondrátiev</div>
+        <div class="cycle-desc">Fase ascendente — Ola 6 IA/Bio/Verde. Pico: 2040</div>
+      </div>
+      <div class="cycle-item cycle-now">
+        <div class="cycle-icon">⚡</div>
+        <div class="cycle-name">Cuarta Vuelta ▶ AHORA</div>
+        <div class="cycle-desc">Crisis activa. Resolución esperada 2028-2032. Alta incertidumbre.</div>
+      </div>
+      <div class="cycle-item cycle-now">
+        <div class="cycle-icon">📉</div>
+        <div class="cycle-name">Gran Ciclo Deuda ▶ AHORA</div>
+        <div class="cycle-desc">Fase de monetización/inflación. Transición de orden en curso.</div>
+      </div>
+      <div class="cycle-item">
+        <div class="cycle-icon">🏛️</div>
+        <div class="cycle-name">Asabiyyah Occidental</div>
+        <div class="cycle-desc">Declive medible. Cohesión social mínima en 50 años.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TIMELINE -->
+  <div class="section-title">📅 Línea de Proyección — <span>2026–2035</span></div>
+  <div class="timeline">
+    <div class="tl-item">
+      <div class="tl-dot" style="border-color:#ef4444;background:#ef4444"></div>
+      <div class="tl-year" style="color:#ef4444">2026</div>
+      <div class="tl-title">Crisis de legitimidad democrática</div>
+      <div class="tl-desc">Elecciones disputadas en múltiples democracias. Instituciones bajo presión máxima. Polarización pico.</div>
+      <div class="tl-analog">Análogo: USA 1860 + Weimar 1932 — crisis antes del quiebre</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="border-color:#f59e0b"></div>
+      <div class="tl-year" style="color:#f59e0b">2027-2028</div>
+      <div class="tl-title">Punto de inflexión — IA como poder estratégico</div>
+      <div class="tl-desc">Primera aplicación militar autónoma de IA en conflicto activo. Carrera armamentista de algoritmos entre USA y China.</div>
+      <div class="tl-analog">Análogo: 1945 — Hiroshima como demostración estratégica</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="border-color:#06b6d4"></div>
+      <div class="tl-year" style="color:#06b6d4">2029-2030</div>
+      <div class="tl-title">Nuevo orden multipolar emergente</div>
+      <div class="tl-desc">Colapso del consenso de Washington. Tres bloques de influencia: USA/Oeste, China/Asia, Sur Global autónomo.</div>
+      <div class="tl-analog">Análogo: 1944 Bretton Woods — pero esta vez sin hegemonía única</div>
+    </div>
+    <div class="tl-item">
+      <div class="tl-dot" style="border-color:#10b981"></div>
+      <div class="tl-year" style="color:#10b981">2032-2035</div>
+      <div class="tl-title">Estabilización — Nuevo Alto</div>
+      <div class="tl-desc">Fin del Cuarto Turno. Nuevas instituciones globales establecidas. Onda Kondrátiev en auge pleno. Período de relativa estabilidad y prosperidad tecnológica.</div>
+      <div class="tl-analog">Análogo: 1946-1960 — Post-WWII boom, instituciones de Bretton Woods</div>
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    ⚠️ Los análisis de esta página son ejercicios de futurología analítica basados en marcos teóricos académicos reconocidos. No constituyen certeza predictiva. Las proyecciones históricas tienen tasas de acierto del 45-70% según el horizonte temporal. Este contenido es exclusivamente para uso educativo y estratégico corporativo. | Analytic Beacon Intelligence Unit — TÚ MAYORISTA EXPRESS LLC
+  </div>
+</div>
+
+<script>
+function filterCards(cat, tab) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  tab.classList.add('active');
+  document.querySelectorAll('.fw-card').forEach(card => {
+    if (cat === 'all' || card.dataset.cat.includes(cat)) {
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+</script>
+</body>
+</html>
