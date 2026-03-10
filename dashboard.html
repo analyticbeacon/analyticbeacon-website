@@ -20,14 +20,17 @@ html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--text);f
 .ov{position:fixed;z-index:10;pointer-events:none}
 .ov *{pointer-events:auto}
 
-/* ── TOP BAR ── */
-#topbar{top:0;left:0;right:0;height:48px;background:rgba(6,13,26,.93);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);display:flex;align-items:center;padding:0 14px;gap:10px}
+/* ── TOP BAR — 2 rows ── */
+#topbar{top:0;left:0;right:0;background:rgba(6,13,26,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--border);display:flex;flex-direction:column;z-index:10}
+.tb-row1{display:flex;align-items:center;padding:0 14px;height:42px;gap:10px;border-bottom:1px solid rgba(255,255,255,.04)}
+.tb-row2{display:flex;align-items:center;padding:0 14px;height:34px;gap:6px;overflow-x:auto;scrollbar-width:none}
+.tb-row2::-webkit-scrollbar{display:none}
 .logo{font-size:.85rem;font-weight:800;color:var(--cyan);letter-spacing:2px;text-decoration:none;white-space:nowrap;flex-shrink:0}
 .logo span{color:var(--accent)}
 
-/* Layer buttons */
-.layer-btns{display:flex;gap:5px;flex:1;justify-content:center}
-.lb{padding:4px 11px;border-radius:20px;border:1px solid rgba(255,255,255,.1);background:transparent;color:var(--muted);font-size:.7rem;font-weight:600;cursor:pointer;transition:all .18s;white-space:nowrap}
+/* Layer buttons — ROW 2 */
+.layer-btns{display:flex;gap:5px;flex-shrink:0}
+.lb{padding:4px 12px;border-radius:20px;border:1px solid rgba(255,255,255,.1);background:transparent;color:var(--muted);font-size:.7rem;font-weight:600;cursor:pointer;transition:all .18s;white-space:nowrap}
 .lb:hover{color:var(--text);border-color:rgba(255,255,255,.25)}
 .lb.on[data-l="conflict"]{background:rgba(239,68,68,.18);border-color:var(--red);color:var(--red)}
 .lb.on[data-l="elections"]{background:rgba(34,197,94,.18);border-color:var(--green);color:var(--green)}
@@ -35,14 +38,15 @@ html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--text);f
 .lb.on[data-l="science"]{background:rgba(6,182,212,.18);border-color:var(--cyan);color:var(--cyan)}
 .lb.on[data-l="academia"]{background:rgba(234,179,8,.18);border-color:var(--yellow);color:var(--yellow)}
 
-/* Markets strip in topbar */
-.mkt-strip{display:flex;gap:10px;align-items:center;flex-shrink:0;border-left:1px solid var(--border);padding-left:10px}
-.mkt-item{display:flex;flex-direction:column;align-items:flex-end;line-height:1.1}
-.mkt-lbl{font-size:.54rem;color:var(--muted);letter-spacing:.5px}
-.mkt-val{font-size:.72rem;font-weight:700;font-family:'Courier New',monospace}
+/* Markets strip — ROW 2 alongside buttons */
+.mkt-sep{width:1px;height:20px;background:var(--border);flex-shrink:0;margin:0 4px}
+.mkt-strip{display:flex;gap:12px;align-items:center;flex-shrink:0}
+.mkt-item{display:flex;align-items:baseline;gap:4px}
+.mkt-lbl{font-size:.6rem;color:var(--muted);letter-spacing:.5px;font-weight:700}
+.mkt-val{font-size:.75rem;font-weight:800;font-family:'Courier New',monospace}
 .up{color:var(--green)}.dn{color:var(--red)}.neu{color:var(--cyan)}
 
-.tb-right{display:flex;align-items:center;gap:8px;flex-shrink:0;border-left:1px solid var(--border);padding-left:10px}
+.tb-right{display:flex;align-items:center;gap:8px;flex-shrink:0;margin-left:auto}
 .live-dot{width:6px;height:6px;border-radius:50%;background:var(--red);box-shadow:0 0 6px var(--red);animation:blink 1.5s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
 #utc{font-size:.68rem;color:var(--muted);font-family:'Courier New',monospace}
@@ -51,7 +55,7 @@ html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--text);f
 .hbtn:hover{color:var(--text)}
 
 /* ── LEFT PANEL ── */
-#lp{top:56px;left:10px;width:188px;bottom:44px;display:flex;flex-direction:column;gap:0}
+#lp{top:84px;left:10px;width:188px;bottom:44px;display:flex;flex-direction:column;gap:0}
 .panel{background:rgba(6,13,26,.9);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:8px;overflow:hidden;display:flex;flex-direction:column}
 
 /* Layer panel — fills remaining height */
@@ -70,13 +74,13 @@ html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--text);f
 .li-sub{font-size:.63rem;color:var(--muted)}
 
 /* ── LEGEND ── */
-#legend{bottom:44px;left:10px;background:rgba(6,13,26,.88);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:8px;padding:8px 11px}
+#legend{bottom:44px;left:10px;background:rgba(6,13,26,.88);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:8px;padding:8px 11px;z-index:10}
 .leg-title{font-size:.56rem;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
 .leg-row{display:flex;align-items:center;gap:7px;padding:2px 0;font-size:.67rem;color:var(--muted)}
 .leg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 
 /* ── RIGHT PANEL ── */
-#rp{top:56px;right:10px;width:208px;bottom:44px;display:flex;flex-direction:column}
+#rp{top:84px;right:10px;width:208px;bottom:44px;display:flex;flex-direction:column}
 #news-panel{flex:1;overflow:hidden;display:flex;flex-direction:column}
 #news-scroll{overflow-y:auto;flex:1;padding:4px 0}
 .ni{padding:6px 11px;border-bottom:1px solid rgba(255,255,255,.04)}
@@ -125,32 +129,35 @@ html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--text);f
 
 <div id="map"></div>
 
-<!-- TOP BAR -->
-<div class="ov" id="topbar">
-  <a class="logo" href="index.html">🏮 <span>ANALYTIC</span> BEACON</a>
-
-  <div class="layer-btns">
-    <button class="lb on" data-l="conflict"  onclick="setLayer('conflict')">⚔️ Conflictos</button>
-    <button class="lb"    data-l="elections" onclick="setLayer('elections')">🗳️ Elecciones</button>
-    <button class="lb"    data-l="miltech"   onclick="setLayer('miltech')">🔫 Tec. Militar</button>
-    <button class="lb"    data-l="science"   onclick="setLayer('science')">🔬 Ciencia</button>
-    <button class="lb"    data-l="academia"  onclick="setLayer('academia')">🎓 Academia</button>
+<!-- TOP BAR — 2 filas -->
+<div id="topbar">
+  <!-- FILA 1: Logo + Status + Clock -->
+  <div class="tb-row1">
+    <a class="logo" href="index.html">🏮 <span>ANALYTIC</span> BEACON</a>
+    <div class="tb-right">
+      <span id="dstatus">Cargando…</span>
+      <div class="live-dot"></div>
+      <div id="utc">00:00:00 UTC</div>
+      <a class="hbtn" href="index.html">← Inicio</a>
+    </div>
   </div>
-
-  <!-- Mercados integrados en topbar -->
-  <div class="mkt-strip">
-    <div class="mkt-item"><span class="mkt-lbl">BTC</span><span class="mkt-val up" id="m-btc">…</span></div>
-    <div class="mkt-item"><span class="mkt-lbl">ETH</span><span class="mkt-val" id="m-eth">…</span></div>
-    <div class="mkt-item"><span class="mkt-lbl">EUR</span><span class="mkt-val neu" id="m-eur">…</span></div>
-    <div class="mkt-item"><span class="mkt-lbl">ORO</span><span class="mkt-val up">$2,912</span></div>
-    <div class="mkt-item"><span class="mkt-lbl">WTI</span><span class="mkt-val up">$73.84</span></div>
-  </div>
-
-  <div class="tb-right">
-    <span id="dstatus">Cargando…</span>
-    <div class="live-dot"></div>
-    <div id="utc">00:00:00 UTC</div>
-    <a class="hbtn" href="index.html">← Inicio</a>
+  <!-- FILA 2: 5 botones de capa + separador + mercados -->
+  <div class="tb-row2">
+    <div class="layer-btns">
+      <button class="lb on" data-l="conflict"  onclick="setLayer('conflict')">⚔️ Conflictos</button>
+      <button class="lb"    data-l="elections" onclick="setLayer('elections')">🗳️ Elecciones</button>
+      <button class="lb"    data-l="miltech"   onclick="setLayer('miltech')">🔫 Tec. Militar</button>
+      <button class="lb"    data-l="science"   onclick="setLayer('science')">🔬 Ciencia</button>
+      <button class="lb"    data-l="academia"  onclick="setLayer('academia')">🎓 Academia</button>
+    </div>
+    <div class="mkt-sep"></div>
+    <div class="mkt-strip">
+      <div class="mkt-item"><span class="mkt-lbl">BTC</span><span class="mkt-val up" id="m-btc">…</span></div>
+      <div class="mkt-item"><span class="mkt-lbl">ETH</span><span class="mkt-val" id="m-eth">…</span></div>
+      <div class="mkt-item"><span class="mkt-lbl">EUR/USD</span><span class="mkt-val neu" id="m-eur">…</span></div>
+      <div class="mkt-item"><span class="mkt-lbl">ORO</span><span class="mkt-val up" id="m-oro">$2,912</span></div>
+      <div class="mkt-item"><span class="mkt-lbl">WTI</span><span class="mkt-val up" id="m-wti">$73.84</span></div>
+    </div>
   </div>
 </div>
 
