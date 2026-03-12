@@ -1,0 +1,39 @@
+name: Monitor de Noticias — Analytic Beacon
+on:
+  schedule:
+    # Corre cada 4 horas en la nube de GitHub (UTC)
+    - cron: '0 */4 * * *'
+  workflow_dispatch: # Permite ejecución manual
+
+jobs:
+  monitor-and-publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+
+    - name: Setup Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Instalar dependencias
+      run: pip install requests feedparser anthropic
+
+    - name: Ejecutar monitor con verificación cruzada
+      env:
+        ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      run: python3 .github/scripts/monitor_noticias.py
+
+    - name: Commit cambios si hay noticias verificadas
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "Analytic Beacon Bot"
+        git add -A
+        git diff --staged --quiet || git commit -m "Auto: noticias verificadas $(date +'%Y-%m-%d %H:%M')"
+        git push || echo "Sin cambios que subir"
