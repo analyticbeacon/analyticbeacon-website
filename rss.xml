@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Analytic Beacon — Inteligencia Geopolítica y Económica</title>
+    <link>https://analyticbeacon.com</link>
+    <description>Análisis de conflictos, mercados y geopolítica global. Inteligencia accionable para decisiones informadas.</description>
+    <language>es</language>
+    <managingEditor>analyticbeacon@gmail.com (Analytic Beacon)</managingEditor>
+    <webMaster>analyticbeacon@gmail.com</webMaster>
+    <lastBuildDate>Wed, 11 Mar 2026 20:00:00 -0400</lastBuildDate>
+    <atom:link href="https://analyticbeacon.com/rss.xml" rel="self" type="application/rss+xml"/>
+    <image>
+      <url>https://analyticbeacon.com/logo.png</url>
+      <title>Analytic Beacon</title>
+      <link>https://analyticbeacon.com</link>
+    </image>
+
+    <item>
+      <title>BRICS+ y la Desdolarización: ¿Amenaza Real o Narrativa Exagerada?</title>
+      <link>https://analyticbeacon.com/dashboard.html</link>
+      <description>Datos concretos sobre el avance del yuan, el rol del oro, las nuevas monedas de intercambio y cuánto tiempo real le queda al dólar como reserva global.</description>
+      <pubDate>Tue, 10 Mar 2026 12:00:00 -0400</pubDate>
+      <guid>https://analyticbeacon.com/articles/brics-desdolarizacion-2026</guid>
+      <category>Mercados</category>
+      <category>Geopolítica</category>
+    </item>
+
+    <item>
+      <title>Ucrania 2026: El Mapa del Conflicto y los Escenarios de Paz Posibles</title>
+      <link>https://analyticbeacon.com/dashboard.html</link>
+      <description>Estado actual del frente, fatiga de guerra en Occidente, posición de Trump ante Kiev y los tres escenarios más probables para los próximos 12 meses.</description>
+      <pubDate>Mon, 09 Mar 2026 12:00:00 -0400</pubDate>
+      <guid>https://analyticbeacon.com/articles/ucrania-escenarios-paz-2026</guid>
+      <category>Europa</category>
+      <category>Conflictos</category>
+    </item>
+
+    <item>
+      <title>Guerra Arancelaria 2025: Cómo los Aranceles de Trump Están Rediseñando el Comercio Mundial</title>
+      <link>https://analyticbeacon.com/dashboard.html</link>
+      <description>Análisis de impacto: cadenas de suministro, inflación en EE.UU., respuesta de China y oportunidades para América Latina en el nuevo mapa comercial.</description>
+      <pubDate>Sun, 08 Mar 2026 12:00:00 -0400</pubDate>
+      <guid>https://analyticbeacon.com/articles/guerra-arancelaria-trump-2025</guid>
+      <category>Economía Global</category>
+      <category>Comercio</category>
+    </item>
+
+    <item>
+      <title>El Ascenso de Trump y el Nuevo Orden Geopolítico</title>
+      <link>https://analyticbeacon.com/dashboard.html</link>
+      <description>Más allá de los titulares: análisis de cómo la segunda administración Trump reconfigura alianzas, aranceles y la arquitectura de seguridad global.</description>
+      <pubDate>Sat, 07 Mar 2026 12:00:00 -0400</pubDate>
+      <guid>https://analyticbeacon.com/articles/trump-nuevo-orden-geopolitico</guid>
+      <category>Geopolítica</category>
+      <category>EE.UU.</category>
+    </item>
+
+    <item>
+      <title>Génesis del Conflicto en Gaza: Raíces Históricas y Dinámicas Actuales</title>
+      <link>https://analyticbeacon.com/dashboard.html</link>
+      <description>Un análisis profundo de las raíces históricas y religiosas del conflicto, desde el Génesis hasta las dinámicas actuales de Hamas, Hezbolá e Irán.</description>
+      <pubDate>Fri, 06 Mar 2026 12:00:00 -0400</pubDate>
+      <guid>https://analyticbeacon.com/articles/genesis-conflicto-gaza</guid>
+      <category>Medio Oriente</category>
+      <category>Conflictos</category>
+    </item>
+
+  </channel>
+</rss>
