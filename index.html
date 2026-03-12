@@ -437,6 +437,10 @@ function applyLang(lang) {
   });
   // Detect browser language on first load
   localStorage.setItem('ab_lang', lang);
+  // Actualizar botón flotante
+  const fab = document.getElementById('lang-fab');
+  if (fab) fab.innerHTML = lang === 'es' ? 'ES → EN' : 'EN → ES';
+
 }
 
 // Auto-detect language on load
@@ -464,5 +468,8 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 </script>
+
+<!-- Botón flotante de idioma — siempre visible -->
+<div id="lang-float" onclick="toggleLang()" style="position:fixed;bottom:24px;right:20px;z-index:9999;background:#00d4ff;color:#070b14;font-weight:800;font-size:.85rem;padding:.55rem 1.1rem;border-radius:24px;cursor:pointer;box-shadow:0 4px 20px rgba(0,212,255,.5);letter-spacing:1px;user-select:none" id="lang-fab">ES | EN</div>
 </body>
 </html>
