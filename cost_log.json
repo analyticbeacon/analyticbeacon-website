@@ -96,5 +96,12 @@
     "tokens": 1063,
     "costo_usd": 0.00098775,
     "modelo": "claude-haiku-4-5"
+  },
+  {
+    "fecha": "2026-03-15T13:59:49.472100+00:00",
+    "evento": "attack",
+    "tokens": 995,
+    "costo_usd": 0.00095675,
+    "modelo": "claude-haiku-4-5"
   }
 ]
