@@ -117,5 +117,12 @@
     "tokens": 1023,
     "costo_usd": 0.00096775,
     "modelo": "claude-haiku-4-5"
+  },
+  {
+    "fecha": "2026-03-17T10:36:41.721927+00:00",
+    "evento": "collapse",
+    "tokens": 1001,
+    "costo_usd": 0.00096425,
+    "modelo": "claude-haiku-4-5"
   }
 ]
