@@ -7,13 +7,23 @@
     <language>es</language>
     <managingEditor>analyticbeacon@gmail.com (Analytic Beacon)</managingEditor>
     <webMaster>analyticbeacon@gmail.com</webMaster>
-    <lastBuildDate>Tue, 17 Mar 2026 20:00:00 -0400</lastBuildDate>
+    <lastBuildDate>Wed, 18 Mar 2026 17:25:00 -0400</lastBuildDate>
     <atom:link href="https://analyticbeacon.com/rss.xml" rel="self" type="application/rss+xml"/>
     <image>
       <url>https://analyticbeacon.com/logo.png</url>
       <title>Analytic Beacon</title>
       <link>https://analyticbeacon.com</link>
     </image>
+    <item>
+      <title>Israel vs Irán: La Guerra que Netanyahu No Puede Ganar Solo</title>
+      <link>https://analyticbeacon.com/israel-iran-guerra-2026.html</link>
+      <description>La campaña de bombardeos israelí ha transformado el Medio Oriente, pero el objetivo real de Netanyahu — cambio de régimen en Teherán — enfrenta límites estructurales que ninguna operación militar puede resolver.</description>
+      <pubDate>Wed, 18 Mar 2026 17:25:00 -0400</pubDate>
+      <guid>https://analyticbeacon.com/israel-iran-guerra-2026.html</guid>
+      <category>Medio Oriente</category>
+      <category>Conflictos</category>
+      <category>Geopolítica</category>
+    </item>
     <item>
       <title>Europa en Modo Guerra: El Gran Rearme de 2026 y Sus Consecuencias Geopolíticas</title>
       <link>https://analyticbeacon.com/europa-rearme-2026.html</link>
@@ -59,15 +69,6 @@
       <guid>https://analyticbeacon.com/articles/trump-nuevo-orden-geopolitico</guid>
       <category>Geopolítica</category>
       <category>EE.UU.</category>
-    </item>
-    <item>
-      <title>Génesis del Conflicto en Gaza: Raíces Históricas y Dinámicas Actuales</title>
-      <link>https://analyticbeacon.com/dashboard.html</link>
-      <description>Un análisis profundo de las raíces históricas y religiosas del conflicto, desde el Génesis hasta las dinámicas actuales de Hamas, Hezbolá e Irán.</description>
-      <pubDate>Fri, 06 Mar 2026 12:00:00 -0400</pubDate>
-      <guid>https://analyticbeacon.com/articles/genesis-conflicto-gaza</guid>
-      <category>Medio Oriente</category>
-      <category>Conflictos</category>
     </item>
   </channel>
 </rss>
