@@ -55,7 +55,7 @@ html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--text);f
 .hbtn:hover{color:var(--text)}
 
 /* ── LEFT PANEL ── */
-#lp{top:84px;left:10px;width:188px;bottom:44px;display:flex;flex-direction:column;gap:0}
+#lp{top:84px;left:10px;width:188px;bottom:44px;flex-direction:column;gap:0;display:none}
 .panel{background:rgba(6,13,26,.9);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:8px;overflow:hidden;display:flex;flex-direction:column}
 
 /* Layer panel — fills remaining height */
@@ -80,7 +80,7 @@ html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--text);f
 .leg-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
 
 /* ── RIGHT PANEL ── */
-#rp{top:84px;right:10px;width:208px;bottom:44px;display:flex;flex-direction:column}
+#rp{top:84px;right:10px;width:208px;bottom:44px;flex-direction:column;display:none}
 #news-panel{flex:1;overflow:hidden;display:flex;flex-direction:column}
 #news-scroll{overflow-y:auto;flex:1;padding:4px 0}
 .ni{padding:6px 11px;border-bottom:1px solid rgba(255,255,255,.04)}
@@ -144,7 +144,7 @@ html,body{height:100%;overflow:hidden;background:var(--dark);color:var(--text);f
   <!-- FILA 2: 5 botones de capa + separador + mercados -->
   <div class="tb-row2">
     <div class="layer-btns">
-      <button class="lb on" data-l="conflict"  onclick="setLayer('conflict')">⚔️ Conflictos</button>
+      <button class="lb" data-l="conflict" onclick="setLayer('conflict')">⚔️ Conflictos</button>
       <button class="lb"    data-l="elections" onclick="setLayer('elections')">🗳️ Elecciones</button>
       <button class="lb"    data-l="miltech"   onclick="setLayer('miltech')">🔫 Tec. Militar</button>
       <button class="lb"    data-l="science"   onclick="setLayer('science')">🔬 Ciencia</button>
@@ -240,6 +240,8 @@ setInterval(()=>{
 //  LAYER SWITCH  (single source of truth)
 // ─────────────────────────────────────────
 function setLayer(l){
+  document.getElementById('lp').style.display='flex';
+  document.getElementById('rp').style.display='flex';
   currentLayer = l;
 
   // 1. Toggle buttons
