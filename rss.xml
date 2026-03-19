@@ -7,13 +7,23 @@
     <language>es</language>
     <managingEditor>analyticbeacon@gmail.com (Analytic Beacon)</managingEditor>
     <webMaster>analyticbeacon@gmail.com</webMaster>
-    <lastBuildDate>Wed, 18 Mar 2026 17:25:00 -0400</lastBuildDate>
+    <lastBuildDate>Thu, 19 Mar 2026 05:47:00 -0400</lastBuildDate>
     <atom:link href="https://analyticbeacon.com/rss.xml" rel="self" type="application/rss+xml"/>
     <image>
       <url>https://analyticbeacon.com/logo.png</url>
       <title>Analytic Beacon</title>
       <link>https://analyticbeacon.com</link>
     </image>
+    <item>
+      <title>La Revolución Cuántica: Cuando la Ciencia Alcanza el Destino Humano</title>
+      <link>https://analyticbeacon.com/revolucion-cuantica-destino-humano.html</link>
+      <description>Computación cuántica, trasplante de conciencia y teletransportación — el momento en que la física cuántica deja de ser teoría y comienza a redefinir qué significa ser humano.</description>
+      <pubDate>Thu, 19 Mar 2026 05:47:00 -0400</pubDate>
+      <guid>https://analyticbeacon.com/revolucion-cuantica-destino-humano.html</guid>
+      <category>Ciencia</category>
+      <category>Cuántica</category>
+      <category>Tecnología</category>
+    </item>
     <item>
       <title>Israel vs Irán: La Guerra que Netanyahu No Puede Ganar Solo</title>
       <link>https://analyticbeacon.com/israel-iran-guerra-2026.html</link>
@@ -22,17 +32,15 @@
       <guid>https://analyticbeacon.com/israel-iran-guerra-2026.html</guid>
       <category>Medio Oriente</category>
       <category>Conflictos</category>
-      <category>Geopolítica</category>
     </item>
     <item>
       <title>Europa en Modo Guerra: El Gran Rearme de 2026 y Sus Consecuencias Geopolíticas</title>
       <link>https://analyticbeacon.com/europa-rearme-2026.html</link>
-      <description>800.000 millones de euros en defensa, Alemania sin freno de deuda, Polonia al 4.7% del PIB. El mayor rearme europeo desde 1945 y sus consecuencias para los mercados y el nuevo orden geopolítico.</description>
+      <description>800.000 millones de euros en defensa, Alemania sin freno de deuda, Polonia al 4.7% del PIB. El mayor rearme europeo desde 1945 y sus consecuencias para los mercados.</description>
       <pubDate>Tue, 17 Mar 2026 20:00:00 -0400</pubDate>
       <guid>https://analyticbeacon.com/europa-rearme-2026.html</guid>
       <category>Geopolítica</category>
       <category>Europa</category>
-      <category>Defensa</category>
     </item>
     <item>
       <title>BRICS+ y la Desdolarización: ¿Amenaza Real o Narrativa Exagerada?</title>
@@ -41,7 +49,6 @@
       <pubDate>Tue, 10 Mar 2026 12:00:00 -0400</pubDate>
       <guid>https://analyticbeacon.com/articles/brics-desdolarizacion-2026</guid>
       <category>Mercados</category>
-      <category>Geopolítica</category>
     </item>
     <item>
       <title>Ucrania 2026: El Mapa del Conflicto y los Escenarios de Paz Posibles</title>
@@ -50,25 +57,6 @@
       <pubDate>Mon, 09 Mar 2026 12:00:00 -0400</pubDate>
       <guid>https://analyticbeacon.com/articles/ucrania-escenarios-paz-2026</guid>
       <category>Europa</category>
-      <category>Conflictos</category>
-    </item>
-    <item>
-      <title>Guerra Arancelaria 2025: Cómo los Aranceles de Trump Están Rediseñando el Comercio Mundial</title>
-      <link>https://analyticbeacon.com/dashboard.html</link>
-      <description>Análisis de impacto: cadenas de suministro, inflación en EE.UU., respuesta de China y oportunidades para América Latina en el nuevo mapa comercial.</description>
-      <pubDate>Sun, 08 Mar 2026 12:00:00 -0400</pubDate>
-      <guid>https://analyticbeacon.com/articles/guerra-arancelaria-trump-2025</guid>
-      <category>Economía Global</category>
-      <category>Comercio</category>
-    </item>
-    <item>
-      <title>El Ascenso de Trump y el Nuevo Orden Geopolítico</title>
-      <link>https://analyticbeacon.com/dashboard.html</link>
-      <description>Más allá de los titulares: análisis de cómo la segunda administración Trump reconfigura alianzas, aranceles y la arquitectura de seguridad global.</description>
-      <pubDate>Sat, 07 Mar 2026 12:00:00 -0400</pubDate>
-      <guid>https://analyticbeacon.com/articles/trump-nuevo-orden-geopolitico</guid>
-      <category>Geopolítica</category>
-      <category>EE.UU.</category>
     </item>
   </channel>
 </rss>
