@@ -572,5 +572,12 @@
     "tokens": 1089,
     "costo_usd": 0.0009612500000000001,
     "modelo": "claude-haiku-4-5"
+  },
+  {
+    "fecha": "2026-04-09T05:45:20.146154+00:00",
+    "evento": "ceasefire",
+    "tokens": 1071,
+    "costo_usd": 0.00096775,
+    "modelo": "claude-haiku-4-5"
   }
 ]
