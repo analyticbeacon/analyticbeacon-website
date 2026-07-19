@@ -1272,5 +1272,19 @@
     "tokens": 993,
     "costo_usd": 0.0009522500000000001,
     "modelo": "claude-haiku-4-5"
+  },
+  {
+    "fecha": "2026-07-19T01:51:09.178290+00:00",
+    "evento": "attack",
+    "tokens": 971,
+    "costo_usd": 0.0009367500000000001,
+    "modelo": "claude-haiku-4-5"
+  },
+  {
+    "fecha": "2026-07-19T01:51:18.986607+00:00",
+    "evento": "tariff",
+    "tokens": 941,
+    "costo_usd": 0.0008872500000000001,
+    "modelo": "claude-haiku-4-5"
   }
 ]
