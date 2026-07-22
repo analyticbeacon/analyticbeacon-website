@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>La Máquina de Fabricar Verdad — Analytic Beacon</title>
+<style>
+/* ============================================================
+   LA MÁQUINA DE FABRICAR VERDAD — kinetic typography master
+   Formato: 1080x1920 (9:16) · Duración: 76s · FPS render: 30
+   Pipeline: hyperframes CLI (modo custom, sin plan.json)
+   Timeline: cada escena entra/sale con animation-delay absoluto.
+   Para ajustar sincronía con la voz en off, editar SOLO las
+   variables --tN de :root (segundos de inicio de cada escena).
+   ============================================================ */
+:root{
+  --carbon:#0A0A0B;
+  --ambar:#E8A13D;
+  --azul:#4A7CFF;
+  --hueso:#F2EFE9;
+  --rojo:#C33B2E;
+
+  /* inicio de cada escena (s) — ÚNICO punto de ajuste de timing */
+  --t1:0s;    /* hook: no te vigila / te examina */
+  --t2:5s;    /* 1973 · Foucault */
+  --t3:12.5s; /* la verdad se PRODUCE */
+  --t4:20s;   /* las cuatro máquinas */
+  --t5:30s;   /* el examen te observa */
+  --t6:37s;   /* panóptico */
+  --t7:46s;   /* la torre en tu bolsillo */
+  --t8:52s;   /* clímax: scroll/pausa/búsqueda */
+  --t9:60s;   /* el algoritmo produce: TÚ */
+  --t10:68s;  /* cierre + CTA */
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden;background:var(--carbon)}
+body{
+  font-family:"Helvetica Neue",Helvetica,Arial,sans-serif;
+  color:var(--hueso);
+  -webkit-font-smoothing:antialiased;
+}
+
+#root{position:relative;width:1080px;height:1920px;background:var(--carbon)}
+
+/* ---------- capas de atmósfera ---------- */
+.bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.22;filter:grayscale(1) contrast(1.2)}
+.vignette{position:absolute;inset:0;z-index:8;pointer-events:none;
+  background:radial-gradient(ellipse 75% 60% at 50% 46%,transparent 55%,rgba(0,0,0,.78) 100%)}
+.scanlines{position:absolute;inset:0;z-index:9;pointer-events:none;opacity:.14;
+  background:repeating-linear-gradient(0deg,transparent 0 3px,rgba(255,255,255,.05) 3px 4px)}
+.grain{position:absolute;inset:0;z-index:9;pointer-events:none;opacity:.4;mix-blend-mode:overlay;
+  background-image:radial-gradient(rgba(255,255,255,.04) 1px,transparent 1px);
+  background-size:5px 7px;animation:grain-shift .4s steps(4) infinite}
+@keyframes grain-shift{0%{transform:translate(0,0)}25%{transform:translate(-3px,2px)}50%{transform:translate(2px,-3px)}75%{transform:translate(-1px,-2px)}100%{transform:translate(0,0)}}
+
+/* barra de "perfilado" — metáfora del examen, progresa toda la pieza */
+.perfil{position:absolute;left:64px;right:64px;bottom:88px;z-index:10}
+.perfil .label{font-size:26px;letter-spacing:.42em;color:rgba(242,239,233,.5);margin-bottom:14px;font-weight:500}
+.perfil .track{height:5px;background:rgba(242,239,233,.14)}
+.perfil .fill{height:100%;width:0;background:var(--ambar);animation:perfil-fill 76s linear both}
+@keyframes perfil-fill{to{width:100%}}
+
+/* ---------- sistema de escenas ---------- */
+.s{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;
+  justify-content:center;padding:0 84px;opacity:0}
+.s .line{opacity:0}
+
+@keyframes scene-in{to{opacity:1}}
+@keyframes scene-out{to{opacity:0}}
+@keyframes line-up{from{opacity:0;transform:translateY(46px)}to{opacity:1;transform:none}}
+@keyframes line-cut{from{opacity:0;transform:scale(1.14)}to{opacity:1;transform:scale(1)}}
+@keyframes strike{from{width:0}to{width:100%}}
+@keyframes eye-scan{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+@keyframes pulse-soft{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
+@keyframes flash-word{0%{opacity:0;transform:scale(1.25)}12%{opacity:1;transform:scale(1)}82%{opacity:1}100%{opacity:0}}
+@keyframes cta-in{from{opacity:0;letter-spacing:.6em}to{opacity:1;letter-spacing:.14em}}
+
+.h-xl{font-size:118px;line-height:1.04;font-weight:900;letter-spacing:-.01em}
+.h-lg{font-size:92px;line-height:1.08;font-weight:900}
+.h-md{font-size:66px;line-height:1.22;font-weight:700}
+.kicker{font-size:30px;letter-spacing:.5em;font-weight:500;color:rgba(242,239,233,.55);text-transform:uppercase}
+.amber{color:var(--ambar)}
+.blue{color:var(--azul)}
+.red{color:var(--rojo)}
+
+/* ============ S1 · HOOK (0–5s) ============ */
+.s1{animation:scene-in .01s var(--t1) both,scene-out .45s calc(var(--t1) + 4.6s) forwards}
+.s1 .l1{animation:line-cut .34s calc(var(--t1) + .1s) cubic-bezier(.2,.9,.2,1) both}
+.s1 .l2{animation:line-cut .3s calc(var(--t1) + 1.7s) cubic-bezier(.2,.9,.2,1) both}
+.s1 .l3{animation:line-up .5s calc(var(--t1) + 3.1s) ease-out both;margin-top:56px}
+.s1 .vigila{position:relative;display:inline-block}
+.s1 .vigila::after{content:"";position:absolute;left:0;top:54%;height:9px;width:0;
+  background:var(--rojo);animation:strike .34s calc(var(--t1) + 1.55s) ease-in both}
+
+/* ============ S2 · 1973 FOUCAULT (5–12.5s) ============ */
+.s2{animation:scene-in .4s var(--t2) both,scene-out .45s calc(var(--t2) + 7s) forwards}
+.s2 .l1{animation:line-up .5s calc(var(--t2) + .2s) ease-out both}
+.s2 .l2{animation:line-up .55s calc(var(--t2) + 1.4s) ease-out both;margin-top:40px}
+.s2 .l3{animation:line-up .55s calc(var(--t2) + 3.6s) ease-out both;margin-top:40px}
+.s2 .year{font-size:210px;font-weight:900;color:transparent;
+  -webkit-text-stroke:3px var(--ambar);letter-spacing:.02em}
+
+/* ============ S3 · LA VERDAD SE PRODUCE (12.5–20s) ============ */
+.s3{animation:scene-in .4s var(--t3) both,scene-out .45s calc(var(--t3) + 7s) forwards;text-align:center;align-items:center}
+.s3 .l1{animation:line-up .5s calc(var(--t3) + .2s) ease-out both}
+.s3 .l2{animation:line-cut .5s calc(var(--t3) + 2.2s) cubic-bezier(.2,.9,.2,1) both;margin-top:64px}
+.s3 .descubre{position:relative;display:inline-block;color:rgba(242,239,233,.55)}
+.s3 .descubre::after{content:"";position:absolute;left:0;top:54%;height:10px;width:0;
+  background:var(--rojo);animation:strike .4s calc(var(--t3) + 1.9s) ease-in both}
+.s3 .produce{font-size:150px;font-weight:900;color:var(--ambar);
+  animation:pulse-soft 2.6s calc(var(--t3) + 2.8s) ease-in-out infinite}
+
+/* ============ S4 · LAS CUATRO MÁQUINAS (20–30s) ============ */
+.s4{animation:scene-in .4s var(--t4) both,scene-out .45s calc(var(--t4) + 9.5s) forwards}
+.s4 .kicker{animation:line-up .5s calc(var(--t4) + .2s) ease-out both;margin-bottom:70px}
+.s4 .maquina{font-size:88px;font-weight:900;padding:26px 0;border-bottom:2px solid rgba(242,239,233,.16)}
+.s4 .m1{animation:line-up .45s calc(var(--t4) + 1.2s) ease-out both}
+.s4 .m2{animation:line-up .45s calc(var(--t4) + 2.6s) ease-out both}
+.s4 .m3{animation:line-up .45s calc(var(--t4) + 4.0s) ease-out both}
+.s4 .m4{animation:line-up .55s calc(var(--t4) + 6.2s) ease-out both;
+  color:var(--ambar);border-bottom:none;font-size:112px;padding-top:60px}
+.s4 .num{font-size:34px;color:rgba(242,239,233,.4);vertical-align:super;margin-right:22px;font-weight:500}
+
+/* ============ S5 · EL EXAMEN (30–37s) ============ */
+.s5{animation:scene-in .4s var(--t5) both,scene-out .45s calc(var(--t5) + 6.5s) forwards;text-align:center;align-items:center}
+.s5 .l1{animation:line-up .5s calc(var(--t5) + .2s) ease-out both}
+.s5 .l2{animation:line-up .55s calc(var(--t5) + 2.6s) ease-out both;margin-top:56px}
+
+/* ============ S6 · PANÓPTICO (37–46s) ============ */
+.s6{animation:scene-in .5s var(--t6) both,scene-out .45s calc(var(--t6) + 8.5s) forwards;align-items:center;text-align:center}
+.ojo{position:relative;width:560px;height:560px;margin-bottom:90px;
+  animation:line-up .7s calc(var(--t6) + .3s) ease-out both}
+.ojo .anillo{position:absolute;border-radius:50%;border:2px solid rgba(74,124,255,.35)}
+.ojo .a1{inset:0}
+.ojo .a2{inset:70px;border-color:rgba(74,124,255,.5)}
+.ojo .a3{inset:150px;border-color:rgba(74,124,255,.7)}
+.ojo .iris{position:absolute;inset:225px;border-radius:50%;
+  background:radial-gradient(circle at 42% 38%,var(--azul) 0%,#12224d 62%,#05070f 100%);
+  box-shadow:0 0 90px rgba(74,124,255,.45)}
+.ojo .beam{position:absolute;inset:0;border-radius:50%;
+  background:conic-gradient(from 0deg,rgba(74,124,255,.28) 0 26deg,transparent 26deg 360deg);
+  animation:eye-scan 5.5s linear calc(var(--t6) + .8s) infinite}
+.s6 .l1{animation:line-up .5s calc(var(--t6) + 1.4s) ease-out both}
+.s6 .l2{animation:line-up .5s calc(var(--t6) + 3.6s) ease-out both;margin-top:36px}
+
+/* ============ S7 · LA TORRE EN TU BOLSILLO (46–52s) ============ */
+.s7{animation:scene-in .4s var(--t7) both,scene-out .45s calc(var(--t7) + 5.5s) forwards;text-align:center;align-items:center}
+.s7 .l1{animation:line-up .5s calc(var(--t7) + .2s) ease-out both}
+.s7 .l2{animation:line-cut .45s calc(var(--t7) + 2.4s) cubic-bezier(.2,.9,.2,1) both;margin-top:60px}
+.s7 .telefono{display:inline-block;width:150px;height:290px;border:5px solid var(--ambar);
+  border-radius:28px;position:relative;margin-top:70px;
+  animation:line-up .55s calc(var(--t7) + 3.2s) ease-out both}
+.s7 .telefono::after{content:"";position:absolute;left:50%;bottom:16px;width:52px;height:6px;
+  background:var(--ambar);transform:translateX(-50%);border-radius:3px}
+
+/* ============ S8 · CLÍMAX RÁFAGA (52–60s) ============ */
+.s8{animation:scene-in .01s var(--t8) both,scene-out .35s calc(var(--t8) + 7.7s) forwards;
+  text-align:center;align-items:center;justify-content:center}
+.s8 .par{position:absolute;width:100%;left:0;padding:0 84px}
+.s8 .p1{animation:flash-word 2.4s calc(var(--t8) + 0s) both}
+.s8 .p2{animation:flash-word 2.4s calc(var(--t8) + 2.4s) both}
+.s8 .p3{animation:flash-word 2.9s calc(var(--t8) + 4.8s) both}
+.s8 .eq{color:rgba(242,239,233,.45);font-size:64px;font-weight:500;display:block;margin:20px 0}
+
+/* ============ S9 · EL ALGORITMO → TÚ (60–68s) ============ */
+.s9{animation:scene-in .4s var(--t9) both,scene-out .45s calc(var(--t9) + 7.5s) forwards;text-align:center;align-items:center}
+.s9 .l1{animation:line-up .5s calc(var(--t9) + .2s) ease-out both}
+.s9 .l2{animation:line-up .5s calc(var(--t9) + 2.6s) ease-out both;margin-top:48px}
+.s9 .tu{font-size:300px;font-weight:900;color:var(--ambar);line-height:1;margin-top:40px;
+  animation:line-cut .6s calc(var(--t9) + 5.2s) cubic-bezier(.2,.9,.2,1) both,
+            pulse-soft 3s calc(var(--t9) + 6s) ease-in-out infinite}
+
+/* ============ S10 · CIERRE + CTA (68–76s) ============ */
+.s10{animation:scene-in .5s var(--t10) both;text-align:center;align-items:center}
+.s10 .l1{animation:line-up .55s calc(var(--t10) + .3s) ease-out both}
+.s10 .l2{animation:line-up .55s calc(var(--t10) + 2.4s) ease-out both;margin-top:44px}
+.s10 .marca{margin-top:120px;animation:cta-in .8s calc(var(--t10) + 4.6s) ease-out both;
+  font-size:44px;font-weight:700;letter-spacing:.14em;color:var(--ambar)}
+.s10 .cta{margin-top:26px;font-size:32px;color:rgba(242,239,233,.65);
+  animation:line-up .5s calc(var(--t10) + 5.4s) ease-out both}
+</style>
+</head>
+<body>
+<div id="root" data-duration="76" data-caption-layer="fg">
+
+  <!-- Fondo opcional generado por Antigravity (generate_image).
+       Si el archivo no existe, se oculta solo y queda el carbón puro. -->
+  <img class="bg-img" src="assets/bg_brutalista.png"
+       onerror="this.style.display='none'" alt="">
+
+  <!-- S1 · HOOK -->
+  <section class="s s1">
+    <div class="line l1 h-xl">TU TELÉFONO<br>NO TE <span class="vigila">VIGILA.</span></div>
+    <div class="line l2 h-xl amber" style="margin-top:48px">TE EXAMINA.</div>
+    <div class="line l3 h-md" style="color:rgba(242,239,233,.7)">Y no es lo mismo.</div>
+  </section>
+
+  <!-- S2 · 1973 -->
+  <section class="s s2">
+    <div class="line l1 year">1973</div>
+    <div class="line l2 h-md">Michel Foucault desmonta la idea<br>que dábamos por hecha:</div>
+    <div class="line l3 h-lg">que la verdad<br><span class="blue">se descubre.</span></div>
+  </section>
+
+  <!-- S3 · SE PRODUCE -->
+  <section class="s s3">
+    <div class="line l1 h-lg">La verdad no se<br><span class="descubre">descubre.</span></div>
+    <div class="line l2"><span class="produce">SE PRODUCE.</span></div>
+  </section>
+
+  <!-- S4 · LAS MÁQUINAS -->
+  <section class="s s4">
+    <div class="kicker line">Cada época fabrica la suya</div>
+    <div class="line maquina m1"><span class="num">01</span>LA PRUEBA</div>
+    <div class="line maquina m2"><span class="num">02</span>LA CONFESIÓN</div>
+    <div class="line maquina m3"><span class="num">03</span>EL INTERROGATORIO</div>
+    <div class="line maquina m4"><span class="num" style="color:rgba(232,161,61,.6)">04</span>EL EXAMEN</div>
+  </section>
+
+  <!-- S5 · EL EXAMEN -->
+  <section class="s s5">
+    <div class="line l1 h-lg">El examen no te pregunta<br>quién eres.</div>
+    <div class="line l2 h-lg amber">Te observa hasta<br>decidirlo por ti.</div>
+  </section>
+
+  <!-- S6 · PANÓPTICO -->
+  <section class="s s6">
+    <div class="ojo">
+      <div class="anillo a1"></div><div class="anillo a2"></div><div class="anillo a3"></div>
+      <div class="beam"></div>
+      <div class="iris"></div>
+    </div>
+    <div class="line l1 h-md kicker" style="letter-spacing:.5em">EL PANÓPTICO</div>
+    <div class="line l2 h-lg">Una torre que todo lo ve,<br><span class="blue">sin ser vista.</span></div>
+  </section>
+
+  <!-- S7 · TU BOLSILLO -->
+  <section class="s s7">
+    <div class="line l1 h-lg">Hoy esa torre no está<br>en una prisión.</div>
+    <div class="line l2 h-lg amber">Está en tu bolsillo.</div>
+    <div class="telefono"></div>
+  </section>
+
+  <!-- S8 · RÁFAGA -->
+  <section class="s s8">
+    <div class="par p1"><div class="h-lg">CADA SCROLL</div><span class="eq">=</span><div class="h-lg amber">UNA RESPUESTA</div></div>
+    <div class="par p2"><div class="h-lg">CADA PAUSA</div><span class="eq">=</span><div class="h-lg amber">UN DATO</div></div>
+    <div class="par p3"><div class="h-lg">CADA BÚSQUEDA</div><span class="eq">=</span><div class="h-lg red">UNA CONFESIÓN</div></div>
+  </section>
+
+  <!-- S9 · EL ALGORITMO -->
+  <section class="s s9">
+    <div class="line l1 h-lg">El algoritmo nunca<br>deja de observarte.</div>
+    <div class="line l2 h-md" style="color:rgba(242,239,233,.7)">Y produce la verdad<br>más rentable de la historia:</div>
+    <div class="line tu">TÚ.</div>
+  </section>
+
+  <!-- S10 · CIERRE -->
+  <section class="s s10">
+    <div class="line l1 h-lg">La pregunta ya no es<br>quién dice la verdad.</div>
+    <div class="line l2 h-lg amber">Es quién tiene el poder<br>de fabricarla.</div>
+    <div class="marca">ANALYTIC BEACON</div>
+    <div class="cta">Descifra las máquinas que te descifran → @AnalyticBeacon</div>
+  </section>
+
+  <div class="perfil">
+    <div class="label">PERFILANDO SUJETO…</div>
+    <div class="track"><div class="fill"></div></div>
+  </div>
+  <div class="vignette"></div>
+  <div class="scanlines"></div>
+  <div class="grain"></div>
+</div>
+</body>
+</html>
