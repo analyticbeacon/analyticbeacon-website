@@ -1,0 +1,15 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "openrouter/mistralai/mistral-large-2512",
+  "provider": {
+    "openrouter": {
+      "name": "OpenRouter",
+      "apiKey": "${OPENROUTER_API_KEY}"
+    }
+  },
+  "keybinds": {
+    "leader": "ctrl+x"
+  },
+  "note": "Mismo modelo que Hermes Desktop — mistral-large-2512 via OpenRouter",
+  "configuredAt": "2026-06-30T00:00:00Z"
+}
