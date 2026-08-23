@@ -1951,5 +1951,12 @@
     "tokens": 1005,
     "costo_usd": 0.00093125,
     "modelo": "claude-haiku-4-5"
+  },
+  {
+    "fecha": "2026-08-23T04:28:14.386082+00:00",
+    "evento": "trade war",
+    "tokens": 943,
+    "costo_usd": 0.00086075,
+    "modelo": "claude-haiku-4-5"
   }
 ]
