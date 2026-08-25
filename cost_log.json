@@ -1986,5 +1986,12 @@
     "tokens": 937,
     "costo_usd": 0.0008862500000000001,
     "modelo": "claude-haiku-4-5"
+  },
+  {
+    "fecha": "2026-08-25T16:25:39.307280+00:00",
+    "evento": "sanctions",
+    "tokens": 1027,
+    "costo_usd": 0.00099675,
+    "modelo": "claude-haiku-4-5"
   }
 ]
