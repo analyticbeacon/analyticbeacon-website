@@ -2077,5 +2077,12 @@
     "tokens": 1008,
     "costo_usd": 0.000968,
     "modelo": "claude-haiku-4-5"
+  },
+  {
+    "fecha": "2026-09-03T02:12:31.294704+00:00",
+    "evento": "crisis",
+    "tokens": 1015,
+    "costo_usd": 0.0009557500000000001,
+    "modelo": "claude-haiku-4-5"
   }
 ]
