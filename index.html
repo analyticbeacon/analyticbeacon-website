@@ -97,21 +97,55 @@ footer ul a:hover{color:var(--accent)}
 .lighthouse-glow{animation:pulse 3s ease-in-out infinite}
 @keyframes pulse{0%,100%{filter:drop-shadow(0 0 12px #06b6d4) drop-shadow(0 0 24px #8b5cf6)}50%{filter:drop-shadow(0 0 20px #06b6d4) drop-shadow(0 0 40px #c77dff)}}
 @media(max-width:768px){.about-grid,.footer-grid{grid-template-columns:1fr}nav ul{display:none}.stats{gap:2rem}}
+
+/* MAP HERO — primary site hook */
+.hero-map{min-height:100vh;padding:5.5rem 0 0;display:flex;flex-direction:column;position:relative;overflow:hidden;background:radial-gradient(ellipse at 40% 0%,rgba(0,212,255,.14) 0%,transparent 50%),radial-gradient(ellipse at 80% 20%,rgba(139,92,246,.12) 0%,transparent 45%),var(--dark)}
+.hero-map-inner{display:grid;grid-template-columns:minmax(280px,1fr) minmax(320px,1.35fr);gap:2rem;align-items:center;padding:1.5rem 5% 1.5rem;flex:1;position:relative;z-index:1}
+.hero-copy{text-align:left;max-width:540px}
+.hero-map .hero-tag{margin-bottom:1.25rem}
+.hero-map h1{font-family:'Playfair Display',serif;font-size:clamp(2.1rem,4.5vw,3.6rem);line-height:1.15;margin-bottom:1rem;max-width:none;margin-left:0;margin-right:0;text-align:left}
+.hero-map h1 em{color:var(--accent);font-style:normal}
+.hero-map .hero-lead{font-size:1.05rem;color:var(--muted);line-height:1.75;margin-bottom:1.25rem}
+.hero-map .hero-mission{font-size:.8rem;color:rgba(0,212,255,.75);letter-spacing:1px;text-transform:uppercase;margin-bottom:1.75rem}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center;margin-bottom:1.5rem}
+.hero-ctas .btn-primary{margin-right:0}
+.map-chips{display:flex;flex-wrap:wrap;gap:.5rem}
+.map-chip{font-size:.72rem;color:var(--muted);border:1px solid rgba(255,255,255,.1);padding:.35rem .75rem;border-radius:999px;background:rgba(255,255,255,.03)}
+.map-frame-wrap{position:relative;border-radius:14px;overflow:hidden;border:1px solid rgba(0,212,255,.28);box-shadow:0 0 0 1px rgba(139,92,246,.12),0 24px 80px rgba(0,0,0,.55),0 0 60px rgba(0,212,255,.08);background:#060d1a;aspect-ratio:16/11;min-height:320px}
+.map-frame-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:none}
+.map-frame-overlay{position:absolute;inset:0;background:linear-gradient(180deg,rgba(7,11,20,.15) 0%,rgba(7,11,20,.55) 70%,rgba(7,11,20,.85) 100%);display:flex;align-items:flex-end;justify-content:center;padding:1.25rem;z-index:2}
+.map-frame-cta{display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;padding:.85rem 1.4rem;border-radius:8px;text-decoration:none;font-weight:700;font-size:.9rem;letter-spacing:.4px;box-shadow:0 8px 28px rgba(0,212,255,.35);transition:.25s;border:1px solid rgba(255,255,255,.15)}
+.map-frame-cta:hover{transform:translateY(-2px);box-shadow:0 12px 36px rgba(0,212,255,.45)}
+.map-live-badge{position:absolute;top:12px;left:12px;z-index:3;display:inline-flex;align-items:center;gap:.4rem;background:rgba(6,13,26,.85);border:1px solid rgba(239,68,68,.45);color:#fecaca;font-size:.68rem;font-weight:700;letter-spacing:1px;padding:.35rem .7rem;border-radius:999px;backdrop-filter:blur(8px)}
+.map-live-badge i{width:6px;height:6px;border-radius:50%;background:#ef4444;box-shadow:0 0 8px #ef4444;display:inline-block;animation:livepulse 1.4s infinite}
+@keyframes livepulse{0%,100%{opacity:1}50%{opacity:.35}}
+.nav-map{color:var(--cyan)!important;font-weight:600!important}
+.nav-map:hover{color:#fff!important}
+@media(max-width:960px){
+  .hero-map-inner{grid-template-columns:1fr;padding-top:1rem}
+  .hero-copy{text-align:center;max-width:640px;margin:0 auto}
+  .hero-map h1{text-align:center}
+  .hero-ctas{justify-content:center}
+  .map-chips{justify-content:center}
+  .map-frame-wrap{min-height:280px;aspect-ratio:16/12}
+}
+@media(max-width:768px){
+  .hero-map{min-height:auto;padding-top:4.5rem}
+  nav ul{display:none}
+}
 </style>
 </head>
 <body>
 <div style="background:#00d4ff;color:#070b14;font-size:.72rem;font-weight:700;padding:.3rem 5%;letter-spacing:2px;text-transform:uppercase;display:flex;gap:2rem;overflow:hidden;white-space:nowrap">
-  <span>● ANALYTIC BEACON INTELLIGENCE TERMINAL</span>
-  <span>BTC: $83,200 ▼1.2%</span>
-  <span>SPY: $558.4 ▼0.8%</span>
-  <span>OIL: $98.7 ▲2.1%</span>
-  <span>USD/EUR: 0.921</span>
-  <span>RADAR: ACTIVO · 4 ESCANEOS/DÍA</span>
+  <span>● ANALYTIC BEACON · INTELLIGENCE MAP</span>
+  <span>CONFLICTOS · ELECCIONES · TEC. MILITAR · CIENCIA</span>
+  <span>RADAR ACTIVO · 4 ESCANEOS/DÍA</span>
+  <span>MERCADOS · PRÓXIMAMENTE</span>
 </div>
 <nav>
   <div class="logo">Analytic<span>Beacon</span></div>
   <ul>
-    <li><a href="dashboard.html">📊 <span data-i18n="nav_dashboard">Dashboard</span></a></li>
+    <li><a class="nav-map" href="dashboard.html">🗺️ <span data-i18n="nav_dashboard">Mapa</span></a></li>
     <li><a href="patrones.html">🔄 <span data-i18n="nav_patterns">Patrones</span></a></li>
     <li><a href="predictor.html">⚖️ <span data-i18n="nav_predictor">Predictor</span></a></li>
     <li><a href="#analisis" data-i18n="nav_analysis">Análisis</a></li>
@@ -127,45 +161,32 @@ footer ul a:hover{color:var(--accent)}
   </ul>
 </nav>
 
-<section class="hero">
-<svg class="lighthouse-bg" viewBox="0 0 340 500" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <defs>
-    <linearGradient id="towerGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#1e1b4b"/><stop offset="50%" stop-color="#312e81"/><stop offset="100%" stop-color="#1e1b4b"/></linearGradient>
-    <linearGradient id="lightGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#06b6d4" stop-opacity="0.8"/><stop offset="100%" stop-color="#8b5cf6" stop-opacity="0"/></linearGradient>
-    <linearGradient id="lightGrad2" x1="1" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c77dff" stop-opacity="0.6"/><stop offset="100%" stop-color="#8b5cf6" stop-opacity="0"/></linearGradient>
-    <radialGradient id="glowGrad" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#06b6d4" stop-opacity="1"/><stop offset="60%" stop-color="#8b5cf6" stop-opacity="0.5"/><stop offset="100%" stop-color="#8b5cf6" stop-opacity="0"/></radialGradient>
-  </defs>
-  <g class="beacon-ray"><polygon points="170,160 340,0 340,120" fill="url(#lightGrad)" opacity="0.7"/><polygon points="170,160 0,0 0,120" fill="url(#lightGrad2)" opacity="0.5"/></g>
-  <g class="beacon-ray"><polygon points="170,160 300,0 340,60" fill="url(#lightGrad)" opacity="0.4"/></g>
-  <g class="beacon-ray"><polygon points="170,160 40,20 0,80" fill="url(#lightGrad2)" opacity="0.3"/></g>
-  <ellipse cx="170" cy="490" rx="120" ry="20" fill="#0d1b2a" opacity="0.8"/>
-  <path d="M 80 490 Q 100 470 130 465 Q 170 460 210 465 Q 240 470 260 490 Z" fill="#111827"/>
-  <path d="M 135 460 L 145 220 L 155 160 L 185 160 L 195 220 L 205 460 Z" fill="url(#towerGrad)"/>
-  <path d="M 136 400 L 138 370 L 202 370 L 204 400 Z" fill="#1e3a5f" opacity="0.6"/>
-  <path d="M 139 330 L 141 300 L 199 300 L 201 330 Z" fill="#1e3a5f" opacity="0.5"/>
-  <path d="M 142 260 L 144 230 L 196 230 L 198 260 Z" fill="#1e3a5f" opacity="0.4"/>
-  <rect x="130" y="195" width="80" height="8" rx="2" fill="#312e81"/>
-  <rect x="125" y="190" width="90" height="8" rx="2" fill="#4c1d95"/>
-  <line x1="130" y1="190" x2="130" y2="200" stroke="#06b6d4" stroke-width="2"/><line x1="145" y1="190" x2="145" y2="200" stroke="#06b6d4" stroke-width="2"/><line x1="160" y1="190" x2="160" y2="200" stroke="#06b6d4" stroke-width="2"/><line x1="175" y1="190" x2="175" y2="200" stroke="#06b6d4" stroke-width="2"/><line x1="190" y1="190" x2="190" y2="200" stroke="#06b6d4" stroke-width="2"/><line x1="205" y1="190" x2="205" y2="200" stroke="#06b6d4" stroke-width="2"/><line x1="130" y1="190" x2="210" y2="190" stroke="#06b6d4" stroke-width="1.5"/>
-  <path d="M 145 195 L 148 165 L 170 140 L 192 165 L 195 195 Z" fill="#1e1b4b"/>
-  <path d="M 148 165 L 170 145 L 192 165 L 190 185 L 150 185 Z" fill="#0f172a" opacity="0.8"/>
-  <ellipse cx="160" cy="172" rx="5" ry="7" fill="#06b6d4" opacity="0.9"/>
-  <ellipse cx="180" cy="172" rx="5" ry="7" fill="#06b6d4" opacity="0.9"/>
-  <path d="M 148 165 L 170 120 L 192 165 Z" fill="#312e81"/>
-  <line x1="170" y1="120" x2="170" y2="108" stroke="#c77dff" stroke-width="3"/>
-  <circle cx="170" cy="106" r="5" fill="#c77dff"/>
-  <circle class="lighthouse-glow" cx="170" cy="162" r="30" fill="url(#glowGrad)" opacity="0.9"/>
-  <circle cx="170" cy="162" r="12" fill="#06b6d4" opacity="0.9"/>
-  <circle cx="170" cy="162" r="6" fill="#ffffff" opacity="0.95"/>
-  <path d="M 60 480 Q 90 472 120 478 Q 150 484 180 478 Q 210 472 240 478 Q 270 484 300 478 L 300 495 L 60 495 Z" fill="#0d1b2a" opacity="0.5"/>
-</svg>
-  <div>
-    <div class="hero-tag" data-i18n="hero_tag">🔦 Inteligencia Geopolítica · Analytic Beacon</div>
-    <h1 data-i18n="hero_h1">Entiende el mundo <em>antes</em> de que te afecte</h1>
-    <p data-i18n="hero_p">Análisis profundos sobre geopolítica, energía, comercio internacional y tecnología. Combinamos rigor analítico con claridad estratégica para que tomes decisiones mejor informadas.</p>
-    <p style="font-size:.85rem;color:rgba(0,212,255,.7);letter-spacing:1px;text-transform:uppercase;margin-top:-1.5rem;margin-bottom:2rem;">Nuestra misión: convertir la complejidad global en inteligencia accionable</p>
-    <a href="#analisis" class="btn-primary" data-i18n="hero_btn1">Ver Análisis</a>
-    <a href="#newsletter" class="btn-secondary" data-i18n="hero_btn2">Suscribirse Gratis</a>
+<section class="hero-map" id="mapa">
+  <div class="hero-map-inner">
+    <div class="hero-copy">
+      <div class="hero-tag" data-i18n="hero_tag">🗺️ Intelligence Map · Analytic Beacon</div>
+      <h1 data-i18n="hero_h1">El mapa de inteligencia que <em>enciende</em> la conversación</h1>
+      <p class="hero-lead" data-i18n="hero_p">Explora conflictos, elecciones, tecnología militar, ciencia y academia en un mapa vivo. La primera impresión de Analytic Beacon: claridad geopolítica, visual y accionable.</p>
+      <p class="hero-mission" data-i18n="hero_mission">Capas en vivo · Fuentes verificadas · Actualización continua</p>
+      <div class="hero-ctas">
+        <a href="dashboard.html" class="btn-primary" data-i18n="hero_btn1">Abrir Mapa de Inteligencia →</a>
+        <a href="#analisis" class="btn-secondary" data-i18n="hero_btn2">Ver análisis</a>
+      </div>
+      <div class="map-chips">
+        <span class="map-chip" data-i18n="chip_conflict">⚔️ Conflictos</span>
+        <span class="map-chip" data-i18n="chip_elections">🗳️ Elecciones</span>
+        <span class="map-chip" data-i18n="chip_miltech">🔫 Tec. Militar</span>
+        <span class="map-chip" data-i18n="chip_science">🔬 Ciencia</span>
+        <span class="map-chip" data-i18n="chip_academia">🎓 Academia</span>
+      </div>
+    </div>
+    <div class="map-frame-wrap" aria-label="Vista previa del mapa de inteligencia">
+      <span class="map-live-badge"><i></i> LIVE MAP</span>
+      <iframe src="dashboard.html?embed=1" title="Analytic Beacon Intelligence Map" loading="eager" tabindex="-1"></iframe>
+      <div class="map-frame-overlay">
+        <a class="map-frame-cta" href="dashboard.html" data-i18n="map_cta">Explorar mapa interactivo →</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -305,7 +326,7 @@ footer ul a:hover{color:var(--accent)}
         <li><a href="#analisis" data-i18n="nav_analysis">Análisis Recientes</a></li>
         <li><a href="#temas" data-i18n="nav_topics">Áreas de Cobertura</a></li>
         <li><a href="#newsletter" data-i18n="nav_subscribe">Newsletter</a></li>
-        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="dashboard.html" data-i18n="nav_dashboard">Mapa</a></li>
       </ul>
     </div>
     <div>
@@ -331,12 +352,15 @@ footer ul a:hover{color:var(--accent)}
 <script>
 const i18n = {
   es: {
-    nav_dashboard:"Dashboard", nav_patterns:"Patrones", nav_predictor:"Predictor",
+    nav_dashboard:"Mapa", nav_patterns:"Patrones", nav_predictor:"Predictor",
     nav_analysis:"Análisis", nav_topics:"Temas", nav_about:"Sobre el Proyecto", nav_subscribe:"Suscribirse",
-    hero_tag:"Inteligencia Geopolítica Estratégica",
-    hero_h1:'Entiende el mundo <em>antes</em> de que te afecte',
-    hero_p:"Análisis profundos sobre geopolítica, energía, comercio internacional y tecnología. Combinamos rigor analítico con claridad estratégica para que tomes decisiones mejor informadas.",
-    hero_btn1:"Ver Análisis", hero_btn2:"Suscribirse Gratis",
+    hero_tag:"🗺️ Intelligence Map · Analytic Beacon",
+    hero_h1:'El mapa de inteligencia que <em>enciende</em> la conversación',
+    hero_p:"Explora conflictos, elecciones, tecnología militar, ciencia y academia en un mapa vivo. La primera impresión de Analytic Beacon: claridad geopolítica, visual y accionable.",
+    hero_mission:"Capas en vivo · Fuentes verificadas · Actualización continua",
+    hero_btn1:"Abrir Mapa de Inteligencia →", hero_btn2:"Ver análisis",
+    chip_conflict:"⚔️ Conflictos", chip_elections:"🗳️ Elecciones", chip_miltech:"🔫 Tec. Militar", chip_science:"🔬 Ciencia", chip_academia:"🎓 Academia",
+    map_cta:"Explorar mapa interactivo →",
     stat1:"Regiones Monitoreadas", stat2:"Fuentes de Inteligencia", stat3:"En Operación", stat4:"Perspectiva Global",
     topics_tag:"Áreas de Análisis",
     topics_h2:'Los temas que <em style="color:var(--accent);font-style:normal">definen</em> el mundo',
@@ -373,12 +397,15 @@ const i18n = {
     footer_content:"Contenido", footer_project:"Proyecto", footer_method:"Metodología", footer_contact:"Contacto", footer_patterns:"Patrones Históricos"
   },
   en: {
-    nav_dashboard:"Dashboard", nav_patterns:"Patterns", nav_predictor:"Predictor",
+    nav_dashboard:"Map", nav_patterns:"Patterns", nav_predictor:"Predictor",
     nav_analysis:"Analysis", nav_topics:"Topics", nav_about:"About", nav_subscribe:"Subscribe",
-    hero_tag:"Strategic Geopolitical Intelligence",
-    hero_h1:'Understand the world <em>before</em> it affects you',
-    hero_p:"In-depth analysis on geopolitics, energy, international trade and technology. We combine analytical rigor with strategic clarity so you make better-informed decisions.",
-    hero_btn1:"View Analysis", hero_btn2:"Subscribe Free",
+    hero_tag:"🗺️ Intelligence Map · Analytic Beacon",
+    hero_h1:'The intelligence map that <em>hooks</em> the conversation',
+    hero_p:"Explore conflicts, elections, military tech, science and academia on a living map. Analytic Beacon's first impression: geopolitical clarity, visual and actionable.",
+    hero_mission:"Live layers · Verified sources · Continuous updates",
+    hero_btn1:"Open Intelligence Map →", hero_btn2:"View analysis",
+    chip_conflict:"⚔️ Conflicts", chip_elections:"🗳️ Elections", chip_miltech:"🔫 Miltech", chip_science:"🔬 Science", chip_academia:"🎓 Academia",
+    map_cta:"Explore interactive map →",
     stat1:"Regions Monitored", stat2:"Intelligence Sources", stat3:"In Operation", stat4:"Global Perspective",
     topics_tag:"Areas of Analysis",
     topics_h2:'The topics that <em style="color:var(--accent);font-style:normal">define</em> the world',
