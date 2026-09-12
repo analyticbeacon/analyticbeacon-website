@@ -241,8 +241,8 @@ const allData = { conflict:[], elections:[], miltech:[], science:[], academia:[]
 //  MAP
 // ─────────────────────────────────────────
 const map = L.map('map',{center:[20,10],zoom:2.4,zoomControl:false,minZoom:2,maxZoom:8});
-L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{
-  attribution:'© OpenStreetMap © CARTO',subdomains:'abcd',maxZoom:19}).addTo(map);
+L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}',{
+  attribution:'Tiles © Esri',maxZoom:16}).addTo(map);
 L.control.zoom({position:'bottomright'}).addTo(map);
 
 // ─────────────────────────────────────────
