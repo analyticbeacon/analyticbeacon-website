@@ -2301,5 +2301,12 @@
     "tokens": 942,
     "costo_usd": 0.0008855,
     "modelo": "claude-haiku-4-5"
+  },
+  {
+    "fecha": "2026-09-17T15:55:47.175349+00:00",
+    "evento": "interest rate",
+    "tokens": 966,
+    "costo_usd": 0.0009165,
+    "modelo": "claude-haiku-4-5"
   }
 ]
